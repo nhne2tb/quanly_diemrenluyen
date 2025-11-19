@@ -112,6 +112,11 @@ switch ($route) {
     require_once __DIR__ . '/../views/bodys_giangvien_lop/bodys_giangvien_drl.php';
     break;
 
+  //capnhat_trang_thai_lop.php
+  case 'capnhat_trang_thai_lop':
+    require_once __DIR__ . '/../views/bodys_tapthelop/capnhat_trang_thai_lop.php';
+    break;  
+
 
 
 
