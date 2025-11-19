@@ -129,6 +129,8 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <th>Từ chối</th>
         <th>Xem</th>
     </tr>
+
+
     
 </thead>
 
@@ -146,7 +148,7 @@ $stt = 1;
 foreach ($dsPhieu as $row): 
 ?>
                         <?php
-                            // Tính giá trị hiển thị cho Học kỳ
+                            // Tính giá trị hiển thị cho Học kỳ ấdsfdsfdsf
                             $displayHK = $row['hoc_ky'];
                             if (!$displayHK && $filter_hk !== '') {
                                 $displayHK = $filter_hk; // dùng HK đang lọc
