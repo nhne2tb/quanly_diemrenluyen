@@ -129,6 +129,7 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <th>Từ chối</th>
         <th>Xem</th>
     </tr>
+    
 </thead>
 
 
