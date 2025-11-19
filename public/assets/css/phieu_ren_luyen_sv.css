@@ -1,0 +1,244 @@
+/* ===== Phieu ren luyen sinh vien CSS ===== */
+/* assets/css/phieu_ren_luyen_sv.css */
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    background: #eef2f7;
+    padding: 30px;
+  }
+
+  .container-box {
+    background: #fff;
+    max-width: 1000px;
+    margin: auto;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  h3 {
+    text-align: center;
+    font-weight: 800;
+    color: #003366;
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== Bảng ===== */
+  table.table-bordered {
+    border: 1px solid #ccc;
+  }
+
+  table.table-bordered th, table.table-bordered td {
+    vertical-align: middle;
+    font-size: 15px;
+    border-color: #bbb;
+    padding: 8px 6px;
+  }
+
+  table.table-bordered th {
+    background: linear-gradient(180deg, #e9f0ff 0%, #dce8ff 100%);
+    text-align: center;
+    font-weight: 600;
+    color: #003366;
+  }
+
+  table.table-bordered td.text-start {
+    text-align: left;
+  }
+
+  /* Mục tiêu đề I, II, III... */
+  .section-header {
+    font-weight: bold;
+    background: #f1f6ff;
+    color: #003366;
+    text-align: left;
+    border-top: 2px solid #003366 !important;
+    font-size: 15.5px;
+  }
+
+  /* STT canh giữa */
+  table.table-bordered tr:not(.section-header) td:first-child,
+  table.table-bordered th:first-child {
+    text-align: center;
+    vertical-align: middle;
+    width: 45px;
+  }
+
+  /* Cột điểm */
+  table.table-bordered tr:not(.section-header) td:nth-child(3),
+  table.table-bordered tr:not(.section-header) td:nth-child(4),
+  table.table-bordered th:nth-child(3),
+  table.table-bordered th:nth-child(4) {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  /* Select nhỏ gọn */
+  select.form-select-sm {
+    max-width: 90px;
+    margin: auto;
+    font-size: 14px;
+    padding: 2px 4px;
+    height: auto;
+  }
+
+  input[type="number"], input[type="radio"] {
+    cursor: pointer;
+  }
+
+  /* Bảng con trong mục Cán bộ lớp */
+  .table.table-sm th {
+    background: #f8f9fc !important;
+    font-size: 14px;
+  }
+
+  /* Ghi chú */
+  .note p {
+    margin-bottom: 5px;
+  }
+
+  .note strong {
+    color: #003366;
+  }
+
+  .save-btn {
+    background: linear-gradient(135deg, #003366, #0055aa);
+    border: none;
+    font-weight: 600;
+  }
+  .save-btn:hover {
+    opacity: 0.9;
+  }
+
+  @media print {
+    body {
+      background: none;
+      padding: 0;
+    }
+    .container-box {
+      box-shadow: none;
+      padding: 0;
+      max-width: 100%;
+    }
+    .save-btn {
+      display: none;
+    }
+  }
+
+
+  body {
+    font-family: 'Times New Roman', Times, serif;
+    background: #eef2f7;
+    padding: 20px;
+  }
+
+  .container-box {
+    background: #fff;
+    max-width: 980px;
+    margin: auto;
+    padding: 35px 45px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+
+  /* Quốc hiệu */
+  .header-vn { margin-bottom: 15px; }
+  .header-vn h5 {
+    margin: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #003366;
+    font-size: 15px;
+  }
+  .header-vn p {
+    margin: 0;
+    font-style: italic;
+    font-size: 14px;
+  }
+
+  h3 {
+    text-align: center;
+    font-weight: 800;
+    color: #003366;
+    margin: 1.2rem 0 1.8rem;
+    text-transform: uppercase;
+  }
+
+  /* === Thông tin sinh viên === */
+  .info-box {
+    background: #f8fbff;
+    border: 1px solid #cfd9ef;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+  }
+
+  .info-line {
+    display: flex;
+    flex-wrap: nowrap;
+    margin-bottom: 8px;
+    font-size: 15.5px;
+    align-items: center;
+  }
+
+  /* “Họ và tên:” sát trái */
+  .info-line strong {
+    color: #003366;
+    width: 110px;
+    flex-shrink: 0;
+    text-align: left;
+  }
+
+  .info-line div {
+    flex: 1;
+  }
+
+  input.input-line {
+    border: none;
+    border-bottom: 1.5px solid #004aad;
+    width: 65px;
+    text-align: center;
+    background: transparent;
+    font-size: 15px;
+    transition: 0.2s;
+  }
+  input.input-line:focus {
+    outline: none;
+    border-color: #007bff;
+  }
+
+  select.input-line {
+    border: 1px solid #ccd6ee;
+    border-radius: 6px;
+    padding: 2px 6px;
+    font-size: 15px;
+    background: #fff;
+    color: #003366;
+  }
+
+  @media print {
+    body { background: none; padding: 0; }
+    .container-box { box-shadow: none; border: none; padding: 0 0 0 25px; }
+    input, select { border: none !important; }
+  }
+
+
+/* Ẩn mũi tên tăng giảm cho input type="number" */
+/* Ẩn mũi tên tăng giảm cho input number (Chrome, Edge, Safari) */
+input.form-control[type="number"]::-webkit-inner-spin-button,
+input.form-control[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none !important;
+  margin: 0 !important;
+}
+
+input.form-control[type="number"] {
+  -moz-appearance: textfield !important;
+  -webkit-appearance: none !important;
+  appearance: textfield !important;
+}
+
+/* ===== Phieu ren luyen sinh vien CSS ===== */ 
+/* assets/css/phieu_ren_luyen_sv.css */
+
