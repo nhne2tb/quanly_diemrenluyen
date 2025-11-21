@@ -12,7 +12,11 @@ require_once __DIR__ . '/../config/config.php';
 require_once __DIR__ . '/../config/db.php';
 
 // (Tùy chọn) Header chung cho giao diện login
-require_once __DIR__ . '/../views/headers/header_login.php';
+$route = $_GET['route'] ?? '';
+
+if ($route !== 'capnhat_trang_thai_lop') {
+    require_once __DIR__ . '/../views/headers/header_login.php';
+}
 
 // ============================================================
 // 🌐 LẤY THAM SỐ 'route' TỪ QUERY STRING
@@ -207,4 +211,6 @@ case 'dashboard':
 // ============================================================
 // 📌 Footer chung cho trang login
 // ============================================================
-require_once __DIR__ . '/../views/footers/footer_login.php';
+if (!in_array($route, ['capnhat_trang_thai_lop'])) {
+    require_once __DIR__ . '/../views/footers/footer_login.php';
+}

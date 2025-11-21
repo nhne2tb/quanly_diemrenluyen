@@ -17,7 +17,7 @@ if (!isset($_SESSION['user']) || ($_SESSION['user']['type'] ?? '') !== 'bodys_ta
 }
 
 // LỚP VÀ KHOA TỪ SESSION
-$ma_lop  = strtolower($_SESSION['user']['id']   ?? '');
+$ma_lop  = strtolower($_SESSION['user']['id'] ?? '');
 $ma_khoa = strtolower($_SESSION['user']['khoa'] ?? '');
 
 if (!$ma_lop || !$ma_khoa) {
@@ -28,25 +28,8 @@ if (!$ma_lop || !$ma_khoa) {
 
 $conn = Database::connect();
 
-// Tên bảng
 $table_prl = "phieu_ren_luyen_{$ma_khoa}_{$ma_lop}";
 $table_sv  = "sv_{$ma_khoa}_{$ma_lop}";
-
-// ================== BỘ LỌC ==================
-$filter_hk = $_GET['hoc_ky'] ?? '';
-$filter_nh = $_GET['nam_hoc'] ?? '';
-
-$where_prl = "";
-$nh_bd = $nh_kt = null;
-
-if ($filter_hk !== '') {
-    $where_prl .= " AND prl.hoc_ky = " . $conn->quote($filter_hk);
-}
-
-if ($filter_nh !== '') {
-    [$nh_bd, $nh_kt] = explode('-', $filter_nh);
-    $where_prl .= " AND prl.nam_bd = " . intval($nh_bd) . " AND prl.nam_kt = " . intval($nh_kt);
-}
 
 // ================== LẤY DỮ LIỆU ==================
 $sql = "
@@ -66,17 +49,12 @@ $sql = "
         prl.nguoi_danh_gia,
         prl.ngay_capnhat
 
-
     FROM `$table_sv` sv
     LEFT JOIN `$table_prl` prl
         ON sv.mssv = prl.mssv
-        " . ($filter_hk ? " AND prl.hoc_ky = " . $conn->quote($filter_hk) : "") . "
-        " . ($filter_nh ? " AND prl.nam_bd = " . intval($nh_bd) . " AND prl.nam_kt = " . intval($nh_kt) : "") . "
 
-    WHERE sv.mssv IS NOT NULL
     ORDER BY sv.mssv ASC
 ";
-
 
 $stmt = $conn->prepare($sql);
 $stmt->execute();
@@ -88,8 +66,17 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <title>Phiếu rèn luyện lớp <?= strtoupper($ma_lop) ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
     <style>
+.text-primary-title {
+    color: #004aad !important;
+}
+
+
+        
         .table thead th { background:#004aad;color:white; }
+        .btn-compact { padding:2px 8px; font-size:12px; border-radius:4px; }
     </style>
 </head>
 
@@ -97,15 +84,16 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <div class="container mt-4">
 
-    <h3 class="text-center fw-bold mb-3">
-        📘 PHIẾU RÈN LUYỆN — LỚP <?= strtoupper($ma_lop) ?>
-    </h3>
-
-    <a href="<?= BASE_URL ?>index.php?route=logout" class="btn btn-danger mb-3">Đăng xuất</a>
+<h3 class="text-center fw-bold mb-3 text-primary-title">
+    Quản Lý Phiếu Rèn Luyện — Lớp: <?= strtoupper($ma_lop) ?>
+</h3>
 
 
-
-    <!-- ================== DANH SÁCH ================== -->
+<a href="<?= BASE_URL ?>index.php?route=logout" class="btn-logout">
+    <i class="bi bi-box-arrow-right"></i> Đăng xuất
+</a>
+<br>
+</BR>
     <div class="card shadow">
         <div class="card-header fw-bold bg-white">
             Danh sách sinh viên lớp <?= strtoupper($ma_lop) ?>
@@ -113,185 +101,231 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="table-responsive">
             <table class="table table-bordered table-striped mb-0">
+
 <thead class="text-center">
-    <tr>
-        <th>STT</th>
-        <th>MSSV</th>
-        <th>Họ tên</th>
-        <th>Học kỳ</th>
-        <th>Năm học</th>
-        <th>Điểm</th>
-        <th>CVHT</th>
-        <th>Lớp</th>
-        <th>Ghi chú lớp</th>
-        <th>Ghi chú CVHT</th>
-        <th>Duyệt</th>
-        <th>Từ chối</th>
-        <th>Xem</th>
-    </tr>
-
-
-    
+<tr>
+    <th>STT</th>
+    <th>MSSV</th>
+    <th>Họ tên</th>
+    <th>Học kỳ</th>
+    <th>Năm học</th>
+    <th>Điểm</th>
+    <th>CVHT</th>
+    <th class="col-lop-header">Lớp</th>
+    <th class="col-ghichu-lop-header">Ghi chú lớp</th>
+    <th>Ghi chú CVHT</th>
+    <th class="col-duyet-header">Duyệt</th>
+    <th class="col-trave-header">Từ chối</th>
+    <th>Xem</th>
+</tr>
 </thead>
 
-
-                <tbody>
-                <?php if (empty($dsPhieu)): ?>
-                    <tr>
-                        <td colspan="9" class="text-center text-muted py-3">
-                            Không có dữ liệu.
-                        </td>
-                    </tr>
-                <?php else: ?>
+<tbody>
 <?php 
+
+if (empty($dsPhieu)): ?>
+    <tr><td colspan="13" class="text-center text-muted py-3">Không có dữ liệu.</td></tr>
+
+<?php else:
 $stt = 1;
-foreach ($dsPhieu as $row): 
-?>
-                        <?php
-                            // Tính giá trị hiển thị cho Học kỳ ấdsfdsfdsf
-                            $displayHK = $row['hoc_ky'];
-                            if (!$displayHK && $filter_hk !== '') {
-                                $displayHK = $filter_hk; // dùng HK đang lọc
-                            }
 
-                            // Tính giá trị hiển thị cho Năm học
-                            if ($row['nam_bd']) {
-                                $displayNH = $row['nam_bd'] . '–' . $row['nam_kt'];
-                            } elseif ($filter_nh !== '') {
-                                [$f_bd, $f_kt] = explode('-', $filter_nh);
-                                $displayNH = $f_bd . '–' . $f_kt; // dùng năm học đang lọc
-                            } else {
-                                $displayNH = '—';
-                            }
-                        ?>
-                        
-                        <tr>
+foreach ($dsPhieu as $row): ?>
+
+<tr data-id="<?= $row['id'] ?>">
     <td class="text-center"><?= $stt++ ?></td>
+    <td class="text-center"><?= $row['mssv'] ?></td>
+    <td><?= htmlspecialchars($row['ho_ten']) ?></td>
 
-                            <td class="text-center"><?= $row['mssv'] ?></td>
-                            
-                            <td><?= htmlspecialchars($row['ho_ten']) ?></td>
+    <td class="text-center"><?= $row['hoc_ky'] ?: '—' ?></td>
+    <td class="text-center"><?= ($row['nam_bd'] && $row['nam_kt']) ? ($row['nam_bd'].'–'.$row['nam_kt']) : '—' ?></td>
 
-                            <td class="text-center">
-                                <?= $displayHK ?: '<span class="text-muted">—</span>' ?>
-                            </td>
+    <td class="text-center fw-bold text-primary">
+        <?= $row['tong_diem'] ?: '—' ?>
+    </td>
 
-                            <td class="text-center">
-                                <?= $displayNH ?: '<span class="text-muted">—</span>' ?>
-                            </td>
+    <!-- CVHT -->
+    <td class="text-center">
+        <?php if (!$row['id']): ?>
+            <span class="badge bg-secondary">SV chưa đánh giá</span>
+        <?php elseif ($row['trang_thai'] === 'Đã duyệt'): ?>
+            <span class="badge bg-success">Đã duyệt</span>
+        <?php elseif ($row['trang_thai'] === 'Trả về'): ?>
+            <span class="badge bg-warning text-dark">Trả về</span>
+        <?php else: ?>
+            <span class="badge bg-secondary">Chưa duyệt</span>
+        <?php endif; ?>
+    </td>
 
-                            <td class="text-center fw-bold text-primary">
-                                <?= $row['tong_diem'] ?: '<span class="text-muted">—</span>' ?>
-                            </td>
+    <!-- Lớp -->
+    <td class="text-center col-lop">
+        <?php if (!$row['id']): ?>
+            <span class="badge bg-secondary">Chưa duyệt</span>
+        <?php elseif ($row['trang_thai_lop'] === 'Đã duyệt'): ?>
+            <span class="badge bg-success">Đã duyệt</span>
+        <?php elseif ($row['trang_thai_lop'] === 'Trả về'): ?>
+            <span class="badge bg-warning text-dark">Trả về</span>
+        <?php else: ?>
+            <span class="badge bg-secondary">Chưa duyệt</span>
+        <?php endif; ?>
+    </td>
 
-                            <!-- Trạng thái cá nhân -->
-                            <td class="text-center">
-                                <?php if (!$row['id']): ?>
-                                    <span class="badge bg-secondary">SV chưa đánh giá</span>
-                                <?php elseif ($row['trang_thai'] === 'Đã duyệt'): ?>
-                                    <span class="badge bg-success">Đã duyệt</span>
-                                <?php elseif ($row['trang_thai'] === 'Trả về'): ?>
-                                    <span class="badge bg-warning text-dark">Trả về</span>
-                                <?php else: ?>
-                                    <span class="badge bg-secondary">Chưa duyệt</span>
-                                <?php endif; ?>
-                            </td>
+    <!-- Ghi chú lớp -->
+    <td class="text-center col-ghichu-lop"><?= $row['ghi_chu_lop'] ?: '—' ?></td>
 
-                            <!-- Trạng thái lớp -->
-                            <td class="text-center">
-                                <?php if (!$row['id']): ?>
-                                    <span class="badge bg-secondary">Chưa duyệt</span>
-                                <?php elseif ($row['trang_thai_lop'] === 'Đã duyệt'): ?>
-                                    <span class="badge bg-success">Đã duyệt</span>
-                                <?php elseif ($row['trang_thai_lop'] === 'Trả về'): ?>
-                                    <span class="badge bg-warning text-dark">Trả về</span>
-                                <?php else: ?>
-                                    <span class="badge bg-secondary">Chưa duyệt</span>
-                                <?php endif; ?>
-                            </td>
+    <!-- Ghi chú CVHT -->
+    <td class="text-center"><?= $row['ghi_chu_co_van'] ?: '—' ?></td>
 
+    <!-- Duyệt -->
+    <td class="text-center col-duyet">
+        <?php if ($row['id']): ?>
+            <button class="btn btn-success btn-compact btn-duyet"
+                    data-id="<?= $row['id'] ?>"
+                    data-table="<?= $table_prl ?>">
+                Duyệt
+            </button>
+        <?php else: ?>
+            <span class="text-muted">—</span>
+        <?php endif; ?>
+    </td>
 
-                            
-                            <td class="text-center">
-    <?= $row['ghi_chu_lop'] ?: '<span class="text-muted">—</span>' ?>
-</td>
+    <!-- Trả về -->
+    <td class="text-center col-trave">
+        <?php if ($row['id']): ?>
+            <button class="btn btn-warning btn-compact btn-trave"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalTraVe"
+                    data-id="<?= $row['id'] ?>">
+                Trả về
+            </button>
+        <?php else: ?>
+            <span class="text-muted">—</span>
+        <?php endif; ?>
+    </td>
 
-<td class="text-center">
-    <?= $row['ghi_chu_co_van'] ?: '<span class="text-muted">—</span>' ?>
-</td>
-<!-- Cột DUYỆT -->
-<td class="text-center">
-    <?php if ($row['id'] && $row['trang_thai_lop'] !== 'Đã duyệt'): ?>
-        <a href="index.php?route=capnhat_trang_thai_lop&id=<?= $row['id'] ?>&action=duyet&table=<?= $table_prl ?>"
-           class="btn btn-success btn-compact">
-           Duyệt
-        </a>
-    <?php else: ?>
-        <span class="text-muted">—</span>
-    <?php endif; ?>
-</td>
+    <td class="text-center">
+        <?php if ($row['id']): ?>
+            <a href="<?= BASE_URL ?>index.php?route=xem_phieu&id=<?= $row['id'] ?>&table=<?= $table_prl ?>"
+               class="btn btn-outline-primary btn-compact">Xem</a>
+        <?php else: ?>
+            —
+        <?php endif; ?>
+    </td>
 
+</tr>
 
-
-<!-- Cột TỪ CHỐI -->
-<td class="text-center">
-    <?php if ($row['id'] && $row['trang_thai_lop'] !== 'Đã duyệt'): ?>
-        <button class="btn btn-warning btn-compact"
-                data-bs-toggle="modal"
-                data-bs-target="#modalTraVe"
-                data-id="<?= $row['id'] ?>">
-            Trả về
-        </button>
-    <?php else: ?>
-        <span class="text-muted">—</span>
-    <?php endif; ?>
-</td>
+<?php endforeach; endif; ?>
+</tbody>
+</table>
+</div></div></div>
 
 
+<!-- ================== MODAL TRẢ VỀ ================== -->
+<div class="modal fade" id="modalTraVe" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold">Trả về phiếu rèn luyện</h5>
+        <button class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
 
-                            <!-- Xem -->
-                            <td class="text-center">
-                                <?php if ($row['id']): ?>
-<a href="<?= BASE_URL ?>index.php?route=xem_phieu&id=<?= $row['id'] ?>&table=<?= $table_prl ?>"
-   class="btn btn-outline-primary btn-compact">Xem</a>
+      <div class="modal-body">
+        <textarea id="inputGhiChuTraVe" class="form-control" rows="3" placeholder="Nhập lý do..."></textarea>
+      </div>
 
-                                <?php else: ?>
-                                    <span class="text-muted">—</span>
-                                <?php endif; ?>
-                            </td>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button class="btn btn-warning" id="btnXacNhanTraVe">Xác nhận</button>
+      </div>
 
-                        </tr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-                </tbody>
-
-            </table>
-        </div>
     </div>
-
+  </div>
 </div>
 
-</body>
-<style>
-    .btn-compact {
-        padding: 2px 8px;
-        font-size: 12px;
-        line-height: 1;
-        border-radius: 4px;
-    }
-    .btn-placeholder {
-        color: #ccc;
-        font-size: 12px;
-        display: inline-block;
-        width: 45px; /* giữ kích thước ổn định */
-        text-align: center;
-    }
-    .table td .btn-compact {
-    margin: 0 !important;
+
+<script>
+
+// ========== UPDATE 1 DÒNG ==========
+function updateRow(id, data) {
+
+    let row = document.querySelector(`tr[data-id="${id}"]`);
+    if (!row) return;
+
+    row.querySelector('.col-lop').innerHTML = data.badge_lop;
+    row.querySelector('.col-ghichu-lop').innerHTML = data.ghi_chu_lop;
+    row.querySelector('.col-duyet').innerHTML = data.button_duyet;
+    row.querySelector('.col-trave').innerHTML = data.button_trave;
+
+    attachEvents();
 }
 
-</style>
 
+// ========== GẮN LẠI EVENT ==========
+function attachEvents() {
+
+document.querySelectorAll('.btn-duyet').forEach(btn => {
+    btn.onclick = function() {
+
+        let id = this.dataset.id;
+
+        fetch('<?= BASE_URL ?>index.php?route=capnhat_trang_thai_lop', {
+            method: "POST",
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+            body: `action=duyet&id=${id}&table=<?= $table_prl ?>`
+        })
+        .then(r => r.json())
+        .then(res => {
+            if (res.status === 'success') {
+                updateRow(id, res.row);
+            } else {
+                alert(res.msg);
+            }
+        })
+        .catch(() => alert("Không thể kết nối server!"));
+    };
+});
+}
+
+let currentId = null;
+
+// ========== LẤY ID TRẢ VỀ ==========
+document.getElementById('modalTraVe').addEventListener('show.bs.modal', e => {
+    currentId = e.relatedTarget.dataset.id;
+});
+
+// ========== XÁC NHẬN TRẢ VỀ ==========
+document.getElementById('btnXacNhanTraVe').onclick = function() {
+
+    let ghichu = document.getElementById('inputGhiChuTraVe').value.trim();
+    if (!ghichu) return alert("Vui lòng nhập ghi chú!");
+
+    fetch('<?= BASE_URL ?>index.php?route=capnhat_trang_thai_lop', {
+        method: "POST",
+        headers: {'Content-Type':'application/x-www-form-urlencoded'},
+body: "action=trave&id=" + currentId +
+      "&table=<?= $table_prl ?>" +
+      "&ghichu=" + encodeURIComponent(ghichu)
+    })
+    .then(r => r.json())
+    .then(res => {
+
+        if (res.status === 'success') {
+
+            updateRow(currentId, res.row);
+
+            bootstrap.Modal.getInstance(document.getElementById('modalTraVe')).hide();
+            document.getElementById('inputGhiChiTraVe').value = "";
+        } else {
+            alert(res.msg);
+        }
+    })
+    // .catch(() => alert("Không thể kết nối server!"));
+};
+
+attachEvents();
+</script>
+
+
+
+</body>
 </html>
-
