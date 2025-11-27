@@ -77,6 +77,27 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
         .table thead th { background:#004aad;color:white; }
         .btn-compact { padding:2px 8px; font-size:12px; border-radius:4px; }
+
+
+        .btn-logout {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #004aad !important;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+    border: none;
+}
+
+.btn-logout:hover {
+    background-color: #003984;
+    color: #fff !important;
+}
+
     </style>
 </head>
 

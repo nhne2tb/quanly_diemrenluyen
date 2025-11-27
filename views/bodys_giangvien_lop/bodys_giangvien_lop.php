@@ -69,13 +69,22 @@ body { background:var(--bg); font-family:'Segoe UI',system-ui,-apple-system,sans
 .quick-card:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(0,0,0,.12);}
 .quick-card i{font-size:1.8rem; margin-bottom:.5rem;}
 .table-hover tbody tr:hover { background:#f4f8ff; }
+
+.logout-top-left, 
+.card a[href*="logout"] {
+    position: relative !important;
+    z-index: 99999 !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
+}
+
 </style>
 </head>
 <body>
 <div class="container-xxl py-4">
 
   <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
-    <h4 class="page-title mb-0"><i class="bi bi-person-workspace me-2"></i>BẢNG ĐIỀU KHIỂN GIẢNG VIÊN</h4>
+<h4 class="page-title mb-0">BẢNG ĐIỀU KHIỂN GIẢNG VIÊN</h4>
 
 
   </div>
@@ -172,7 +181,7 @@ options: {
   <!-- CHỨC NĂNG NHANH -->
   <div class="row g-3 mb-4">
     <div class="col-12 col-sm-6 col-md-3">
-      <a href="<?= BASE_URL ?>index.php?route=bodys_giangvien_lop" class="quick-card">
+      <a href="<?= BASE_URL ?>index.php?route=bodys_giangvien_dsl" class="quick-card">
         <i class="bi bi-people-fill text-primary"></i>
         <h6 class="mb-1">Danh sách lớp phụ trách</h6>
         <p class="text-muted mb-0">Xem thông tin lớp và sinh viên</p>
@@ -204,7 +213,7 @@ options: {
   <!-- DANH SÁCH LỚP (KHÔNG DUYỆT – KHÔNG LỌC) -->
   <div class="card p-4 mb-4">
     <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-      <h5 class="fw-bold text-primary mb-0"><i class="bi bi-mortarboard-fill me-2"></i>Lớp phụ trách</h5>
+<h5 class="page-title mb-0">Lớp phụ trách</h5>
       <div class="input-group input-group-sm" style="width:240px;">
         <span class="input-group-text bg-white border-end-0"><i class="bi bi-search text-muted"></i></span>
         <input type="text" id="searchLop" class="form-control border-start-0 shadow-none" placeholder="Tìm lớp...">
@@ -248,6 +257,9 @@ document.getElementById('searchLop')?.addEventListener('keyup', e=>{
     r.style.display = r.innerText.toLowerCase().includes(kw) ? '' : 'none';
   });
 });
+
+
+
 </script>
 
 </body>

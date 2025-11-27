@@ -1,5 +1,5 @@
 <?php
-// views/bodys_giangvien_lop/bodys_giangvien_lop.php    
+// views/bodys_giangvien_lop/bodys_giangvien_dsl.php    
 if (session_status() === PHP_SESSION_NONE) session_start();
 
 require_once __DIR__ . '/../../config/config.php';
@@ -164,8 +164,8 @@ function tableExists(PDO $conn, $table) {
                             <strong>Sĩ số:</strong> <?= $si_so_thuc ?> sinh viên
                         </div>
 
-                        <a class="btn-view" href="<?= BASE_URL ?>index.php?route=capnhat_drl_giangvien&lop=<?= $lop['ma_lop'] ?>">
-                            Xem điểm rèn luyện
+                        <a class="btn-view" href="<?= BASE_URL ?>index.php?route=bodys_giangvien_dsl_chitiet&lop=<?= $lop['ma_lop'] ?>">
+                            Xem danh sách sinh viên
                         </a>
                     </div>
                 </div>

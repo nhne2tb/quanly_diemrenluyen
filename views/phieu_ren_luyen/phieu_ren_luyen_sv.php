@@ -193,12 +193,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 <div class="container-box">
   <!-- 🇻🇳 Quốc hiệu -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-<a href="<?= BASE_URL ?>index.php?route=bodys_sinhvien" class="btn btn-outline-secondary btn-sm rounded-pill px-3">
-  ⬅ Quay lại
+
+<a href="<?= BASE_URL ?>index.php?route=bodys_sinhvien" 
+   class="btn btn-outline-primary btn-sm rounded-pill">
+    <i class="bi bi-arrow-left-circle"></i> Quay lại
 </a>
 
     <h3 class="flex-grow-1 text-center m-0">PHIẾU ĐÁNH GIÁ KẾT QUẢ RÈN LUYỆN </h3>
+
+    
     <div style="width:80px;"></div> <!-- giữ cân đối khi căn giữa -->
+    
   </div>
 
 

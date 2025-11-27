@@ -49,17 +49,28 @@ body { background:var(--bg); font-family:'Segoe UI', system-ui, sans-serif; }
 <body>
 <div class="container-xxl py-4">
 
-<h4 class="page-title mb-4">HỒ SƠ GIẢNG VIÊN</h4>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="page-title m-0">HỒ SƠ GIẢNG VIÊN</h4>
+
+<!-- <a href="<?= BASE_URL ?>index.php?route=bodys_giangvien_drl" 
+   class="btn btn-outline-primary btn-sm rounded-pill"
+   style="border-color:#004aad; color:#004aad;">
+    <i class="bi bi-arrow-left"></i> Quay lại
+</a> -->
+
+
+<a href="<?= BASE_URL ?>index.php?route=bodys_giangvien_drl" 
+   class="btn btn-outline-primary btn-sm rounded-pill">
+    <i class="bi bi-arrow-left-circle"></i> Quay lại
+</a>
+</div>
 
 
     <!-- THÔNG TIN GIẢNG VIÊN -->
     <div class="card p-4 mb-4">
         <div class="row g-3 align-items-center">
-    <a href="<?= BASE_URL ?>index.php?route=bodys_giangvien"
-       class="btn btn-outline-primary btn-sm me-2"
-       style="border-radius:8px;">
-        <i class="bi bi-arrow-left"></i> Quay lại
-    </a>
+
+
             <!-- Avatar -->
             <div class="col-md-3 text-center">
                 

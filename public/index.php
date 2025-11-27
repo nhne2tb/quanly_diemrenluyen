@@ -126,6 +126,31 @@ switch ($route) {
     require_once __DIR__ . '/../views/bodys_giangvien_lop/hoso_giangvien.php';
     break;  
 
+  // views/bodys_giangvien_lop/capnhat_drl_giangvien.php
+  case 'capnhat_drl_giangvien':
+    require_once __DIR__ . '/../views/bodys_giangvien_lop/capnhat_drl_giangvien.php';
+    break;
+  
+  // views/bodys_giangvien_lop/capnhat_trang_thai_cvht.php
+  case 'capnhat_trang_thai_cvht':
+    require_once __DIR__ . '/../views/bodys_giangvien_lop/capnhat_trang_thai_cvht.php';
+    break;
+
+  // views/bodys_giangvien_lop/bodys_giangvien_dsl.php    
+  case 'bodys_giangvien_dsl':
+    require_once __DIR__ . '/../views/bodys_giangvien_lop/bodys_giangvien_dsl.php';
+    break;
+
+  // views/bodys_giangvien_lop/bodys_giangvien_dsl_chitiet.php    
+
+  case 'bodys_giangvien_dsl_chitiet':
+    require_once __DIR__ . '/../views/bodys_giangvien_lop/bodys_giangvien_dsl_chitiet.php';
+    break;  
+    
+// views/phieu_ren_luyen/xem_phieu_ren_luyen_sv.php
+  case 'xem_phieu_ren_luyen_sv':
+    require_once __DIR__ . '/../views/phieu_ren_luyen/xem_phieu_ren_luyen_sv.php';
+    break;
 
 
 
