@@ -117,6 +117,13 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
 </head>
 <body>
 <div class="wrap">
+  <div class="d-flex justify-content-end mb-3">
+    <a href="<?= BASE_URL ?>index.php?route=dashboard"
+       class="btn btn-sm rounded-pill"
+       style="border:1px solid #004aad; color:#004aad; font-weight:600;">
+        <i class="bi bi-arrow-left-circle"></i> Quay lại
+    </a>
+</div>
   <div class="main-card">
     <!-- HEADER -->
     <div class="card-header">

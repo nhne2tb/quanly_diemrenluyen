@@ -206,17 +206,107 @@ if (isset($_SESSION['user']['type'])) {
     <i>(đi học muộn, nghỉ học không lý do, bỏ giờ: trừ 1 điểm/1 lần)</i>
   </td>
   <td class="text-center">05</td>
-  <td class="text-center value-box"><?= $phieu['diem_i1_hoc_tap'] ?></td>
+<td class="text-center">
+<?php if($isGV): ?>
+    <select name="diem_i1_hoc_tap" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=5;$i++): ?>
+            <option value="<?=$i?>" <?= ($phieu['diem_i1_hoc_tap']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+    </select>
+<?php else: ?>
+    <span class="value-box"><?= $phieu['diem_i1_hoc_tap'] ?></span>
+<?php endif; ?>
+</td>
 </tr>
 
 <!-- I.2 -->
+<!-- I.2 -->
 <tr><td class="text-center">2</td><td colspan="3" class="text-start">Ý thức, thái độ tham gia</td></tr>
 
-<tr><td></td><td><i>– Các hoạt động học thuật</i></td><td class="text-center">01</td><td class="text-center value-box"><?= $phieu['diem_i2_hoc_thuat'] ?></td></tr>
-<tr><td></td><td><i>– Hoạt động ngoại khóa</i></td><td class="text-center">01</td><td class="text-center value-box"><?= $phieu['diem_i2_ngoai_khoa'] ?></td></tr>
-<tr><td></td><td><i>– Rèn luyện kỹ năng mềm</i></td><td class="text-center">01</td><td class="text-center value-box"><?= $phieu['diem_i2_ky_nang_mem'] ?></td></tr>
-<tr><td></td><td><i>– Nghiên cứu khoa học</i></td><td class="text-center">01</td><td class="text-center value-box"><?= $phieu['diem_i2_nc_khoa_hoc'] ?></td></tr>
-<tr><td></td><td><i>– Các cuộc thi của Trường/Đoàn/Hội</i></td><td class="text-center">01</td><td class="text-center value-box"><?= $phieu['diem_i2_cuoc_thi'] ?></td></tr>
+<tr>
+  <td></td>
+  <td><i>– Các hoạt động học thuật</i></td>
+  <td class="text-center">01</td>
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <select name="diem_i2_hoc_thuat" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=1;$i++): ?>
+          <option value="<?=$i?>" <?= ($phieu['diem_i2_hoc_thuat']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+      </select>
+    <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_i2_hoc_thuat'] ?></span>
+    <?php endif; ?>
+  </td>
+</tr>
+
+<tr>
+  <td></td>
+  <td><i>– Hoạt động ngoại khóa</i></td>
+  <td class="text-center">01</td>
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <select name="diem_i2_ngoai_khoa" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=1;$i++): ?>
+          <option value="<?=$i?>" <?= ($phieu['diem_i2_ngoai_khoa']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+      </select>
+    <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_i2_ngoai_khoa'] ?></span>
+    <?php endif; ?>
+  </td>
+</tr>
+
+<tr>
+  <td></td>
+  <td><i>– Rèn luyện kỹ năng mềm</i></td>
+  <td class="text-center">01</td>
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <select name="diem_i2_ky_nang_mem" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=1;$i++): ?>
+          <option value="<?=$i?>" <?= ($phieu['diem_i2_ky_nang_mem']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+      </select>
+    <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_i2_ky_nang_mem'] ?></span>
+    <?php endif; ?>
+  </td>
+</tr>
+
+<tr>
+  <td></td>
+  <td><i>– Nghiên cứu khoa học</i></td>
+  <td class="text-center">01</td>
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <select name="diem_i2_nc_khoa_hoc" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=1;$i++): ?>
+          <option value="<?=$i?>" <?= ($phieu['diem_i2_nc_khoa_hoc']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+      </select>
+    <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_i2_nc_khoa_hoc'] ?></span>
+    <?php endif; ?>
+  </td>
+</tr>
+
+<tr>
+  <td></td>
+  <td><i>– Các cuộc thi của Trường/Đoàn/Hội</i></td>
+  <td class="text-center">01</td>
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <select name="diem_i2_cuoc_thi" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=1;$i++): ?>
+          <option value="<?=$i?>" <?= ($phieu['diem_i2_cuoc_thi']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+      </select>
+    <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_i2_cuoc_thi'] ?></span>
+    <?php endif; ?>
+  </td>
+</tr>
 
 <!-- I.3 -->
 <tr>
@@ -241,8 +331,21 @@ if (isset($_SESSION['user']['type'])) {
   <td class="text-center">4</td>
   <td>Tích cực đánh giá hoạt động giảng dạy</td>
   <td class="text-center">02</td>
-  <td class="text-center value-box"><?= $phieu['diem_i4_danh_gia_gv'] ?></td>
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <select name="diem_i4_danh_gia_gv" class="form-select form-select-sm">
+        <?php for($i=0;$i<=2;$i++): ?>
+          <option value="<?=$i?>" <?=($phieu['diem_i4_danh_gia_gv']==$i?'selected':'')?> >
+            <?=$i?>
+          </option>
+        <?php endfor; ?>
+      </select>
+    <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_i4_danh_gia_gv'] ?></span>
+    <?php endif; ?>
+  </td>
 </tr>
+
 
 <!-- I.5 -->
 <tr>
@@ -257,15 +360,29 @@ $gpaList = [
   5 => 'Điểm TBCHT: 3,20 – 3,59',
   6 => 'Điểm TBCHT: 3,60 – 4,00'
 ];
+
 foreach ($gpaList as $val => $label):
 ?>
 <tr>
   <td></td>
   <td><i>– <?= $label ?></i></td>
   <td class="text-center"><?= $val ?></td>
-  <td class="text-center value-box"><?= ($phieu['diem_i5_tbc'] == $val) ? $val : '' ?></td>
+
+  <td class="text-center">
+    <?php if($isGV): ?>
+        <input type="radio" 
+               name="diem_i5_tbc" 
+               value="<?= $val ?>" 
+               <?= ($phieu['diem_i5_tbc'] == $val ? 'checked' : '') ?>>
+    <?php else: ?>
+        <span class="value-box">
+            <?= ($phieu['diem_i5_tbc'] == $val) ? $val : '' ?>
+        </span>
+    <?php endif; ?>
+  </td>
 </tr>
 <?php endforeach; ?>
+
 
 <!-- Điểm thưởng -->
 <!-- <tr>
@@ -305,13 +422,20 @@ foreach ($gpaList as $val => $label):
     </div>
   </td>
 
-  <!-- CỘT LỰA CHỌN ĐIỂM -->
-  <td class="text-center">
-    <div style="margin-top:8px;">
-      <strong>Điểm đã cộng:</strong>
-      <span class="value-box"><?= $phieu['diem_i_thuong'] ?></span>
-    </div>
-  </td>
+<td class="text-center">
+<?php if($isGV): ?>
+    <select name="diem_i_thuong" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=3;$i++): ?>
+            <option value="<?=$i?>" <?= ($phieu['diem_i_thuong']==$i?'selected':'') ?>>
+                <?=$i?>
+            </option>
+        <?php endfor; ?>
+    </select>
+<?php else: ?>
+    <span class="value-box"><?= $phieu['diem_i_thuong'] ?></span>
+<?php endif; ?>
+</td>
+
 </tr>
 
 <!-- II -->
@@ -335,7 +459,36 @@ $rows = [
   <td class="text-center"><?= $i + 1 ?></td>
   <td class="text-start"><?= $r['label'] ?></td>
   <td class="text-center"><?= $r['max'] ?></td>
-  <td class="value-box text-center"><?= $phieu[$r['name']] ?></td>
+
+  <td class="text-center">
+
+    <?php if($isGV): ?>
+      <select name="<?= $r['name'] ?>" class="form-select form-select-sm score-input">
+        
+        <?php if ($r['max'] == 10): ?>
+            <!-- Nếu max = 10 thì chỉ cho phép 0, 5, 10 -->
+            <?php foreach ([0,5,10] as $diem): ?>
+              <option value="<?= $diem ?>" <?= ($phieu[$r['name']] == $diem ? 'selected' : '') ?>>
+                <?= $diem ?>
+              </option>
+            <?php endforeach; ?>
+
+        <?php else: ?>
+            <!-- Nếu max != 10 thì duyệt từ 0 → max -->
+            <?php for($diem = 0; $diem <= $r['max']; $diem++): ?>
+              <option value="<?= $diem ?>" <?= ($phieu[$r['name']] == $diem ? 'selected' : '') ?>>
+                <?= $diem ?>
+              </option>
+            <?php endfor; ?>
+        <?php endif; ?>
+
+      </select>
+
+    <?php else: ?>
+      <span class="value-box"><?= $phieu[$r['name']] ?></span>
+    <?php endif; ?>
+
+  </td>
 </tr>
 <?php endforeach; ?>
 
@@ -357,7 +510,20 @@ $rows = [
     <i>(Trừ 05 điểm/1 lần vắng mặt)</i>
   </td>
   <td class="text-center">10</td>
-  <td class="value-box text-center"><?= $phieu['diem_iii1_tham_gia'] ?></td>
+
+  <td class="text-center">
+  <?php if($isGV): ?>
+      <select name="diem_iii1_tham_gia" class="form-select form-select-sm score-input">
+        <?php foreach ([0,5,10] as $d): ?>
+          <option value="<?=$d?>" <?= ($phieu['diem_iii1_tham_gia'] == $d ? "selected" : "") ?>>
+            <?=$d?>
+          </option>
+        <?php endforeach; ?>
+      </select>
+  <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_iii1_tham_gia'] ?></span>
+  <?php endif; ?>
+  </td>
 </tr>
 
 <!-- III.2 -->
@@ -368,7 +534,20 @@ $rows = [
     hoạt động công ích, tình nguyện, từ thiện, nhân đạo, công tác xã hội.
   </td>
   <td class="text-center">05</td>
-  <td class="value-box text-center"><?= $phieu['diem_iii2_tuyen_truyen'] ?></td>
+
+  <td class="text-center">
+  <?php if($isGV): ?>
+      <select name="diem_iii2_tuyen_truyen" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=5;$i++): ?>
+          <option value="<?=$i?>" <?= ($phieu['diem_iii2_tuyen_truyen'] == $i ? "selected" : "") ?>>
+            <?=$i?>
+          </option>
+        <?php endfor; ?>
+      </select>
+  <?php else: ?>
+      <span class="value-box"><?= $phieu['diem_iii2_tuyen_truyen'] ?></span>
+  <?php endif; ?>
+  </td>
 </tr>
 
 <!-- III.3 -->
@@ -383,8 +562,16 @@ $rows = [
   <td></td>
   <td class="text-start"><i>– Khá</i></td>
   <td class="text-center">03</td>
-  <td class="value-box text-center">
-      <?= ($phieu['diem_iii3_xep_loai_doan'] == 3) ? 3 : '' ?>
+
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <input type="radio" name="diem_iii3_xep_loai_doan" value="3"
+             <?= ($phieu['diem_iii3_xep_loai_doan'] == 3 ? "checked" : "") ?>>
+    <?php else: ?>
+      <span class="value-box">
+        <?= ($phieu['diem_iii3_xep_loai_doan'] == 3 ? 3 : "") ?>
+      </span>
+    <?php endif; ?>
   </td>
 </tr>
 
@@ -392,8 +579,16 @@ $rows = [
   <td></td>
   <td class="text-start"><i>– Xuất sắc</i></td>
   <td class="text-center">05</td>
-  <td class="value-box text-center">
-      <?= ($phieu['diem_iii3_xep_loai_doan'] == 5) ? 5 : '' ?>
+
+  <td class="text-center">
+    <?php if($isGV): ?>
+      <input type="radio" name="diem_iii3_xep_loai_doan" value="5"
+             <?= ($phieu['diem_iii3_xep_loai_doan'] == 5 ? "checked" : "") ?>>
+    <?php else: ?>
+      <span class="value-box">
+        <?= ($phieu['diem_iii3_xep_loai_doan'] == 5 ? 5 : "") ?>
+      </span>
+    <?php endif; ?>
   </td>
 </tr>
 
@@ -423,7 +618,6 @@ $rows = [
   </td>
 </tr> -->
 
-
 <!-- Điểm thưởng III -->
 <tr>
   <td colspan="3" class="text-start">
@@ -450,8 +644,21 @@ $rows = [
   <!-- Cột chọn điểm -->
   <td class="text-center">
     <div class="mt-2">
+
       <strong>Điểm đã cộng:</strong>
-      <span class="value-box"> <?= $phieu['diem_iii_thuong'] ?> </span>
+
+      <?php if($isGV): ?>
+        <select name="diem_iii_thuong" class="form-select form-select-sm score-input mt-2">
+          <?php foreach ([0,1,2,3] as $d): ?>
+            <option value="<?= $d ?>" <?= ($phieu['diem_iii_thuong'] == $d ? 'selected' : '') ?>>
+              <?= $d ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+      <?php else: ?>
+        <span class="value-box"><?= $phieu['diem_iii_thuong'] ?></span>
+      <?php endif; ?>
+
     </div>
   </td>
 </tr>
@@ -481,7 +688,21 @@ $iv = [
   <td class="text-center"><?= $i + 1 ?></td>
   <td class="text-start"><?= $r['label'] ?></td>
   <td class="text-center">05</td>
-  <td class="value-box text-center"><?= $phieu[$r['key']] ?></td>
+
+  <td class="text-center">
+    <?php if($isGV): ?>
+        <select name="<?= $r['key'] ?>" class="form-select form-select-sm score-input">
+            <?php for($d=0; $d<=5; $d++): ?>
+                <option value="<?= $d ?>" <?= ($phieu[$r['key']] == $d ? 'selected' : '') ?>>
+                    <?= $d ?>
+                </option>
+            <?php endfor; ?>
+        </select>
+    <?php else: ?>
+        <span class="value-box"><?= $phieu[$r['key']] ?></span>
+    <?php endif; ?>
+  </td>
+
 </tr>
 <?php endforeach; ?>
 
@@ -498,41 +719,48 @@ $iv = [
 
 <!-- Mục 1 -->
 <tr>
-  <td class="text-center">1</td>
-  <td class="text-start">
-    Không là cán bộ lớp, Đoàn, Hội nhưng thực hiện tốt nhiệm vụ
+  <td>1</td>
+  <td class="text-start">Không là cán bộ lớp, Đoàn, Hội nhưng thực hiện tốt nhiệm vụ</td>
+  <td>04</td>
+  <td>
+    <select name="diem_v1_khong_can_bo" id="opt1" class="form-select form-select-sm score-input lock-group">
+      <option value="">-- Chọn --</option>
+      <?php for($i=0;$i<=4;$i++): ?>
+        <option value="<?=$i?>" <?= ($phieu['diem_v1_khong_can_bo']==$i?'selected':'') ?>>
+          <?=$i?>
+        </option>
+      <?php endfor; ?>
+    </select>
   </td>
-  <td class="text-center">04</td>
-  <td class="value-box text-center"><?= $phieu['diem_v1_khong_can_bo'] ?></td>
 </tr>
 
 <!-- Mục 2 -->
 <tr>
-  <td class="text-center">2</td>
+  <td>2</td>
   <td class="text-start">
-    Là cán bộ lớp, cán bộ Đoàn, Hội nhưng không thực hiện tốt nhiệm vụ được giao,
-    không gương mẫu trước tập thể
+    Là cán bộ lớp, cán bộ Đoàn, Hội nhưng không thực hiện tốt nhiệm vụ được giao, không gương mẫu trước tập thể
   </td>
-  <td class="text-center">00</td>
-  <td class="value-box text-center">
-      <?= ($phieu['diem_v2_khong_hoan_thanh'] == 0 ? '0' : '') ?>
+  <td>00</td>
+  <td class="text-center">
+    <input type="checkbox"
+           id="opt2"
+           class="form-check-input score-input lock-group"
+           name="diem_v2_khong_hoan_thanh"
+           value="0"
+           <?= ($phieu['diem_v2_khong_hoan_thanh']==0?'checked':'') ?>>
   </td>
 </tr>
 
 <!-- Mục 3 -->
 <tr>
-  <td class="text-center">3</td>
+  <td>3</td>
   <td colspan="2" class="text-start">
-    Nếu là cán bộ lớp, cán bộ Đoàn, Hội thì căn cứ vào kết quả thi đua của tập thể lớp quy định như sau:
+    Nếu là cán bộ lớp, cán bộ Đoàn, Hội thì căn cứ vào kết quả thi đua...
     <div class="table-responsive mt-2" style="margin-left:15px;max-width:500px;">
       <table class="table table-bordered table-sm align-middle mb-0">
         <thead class="table-light text-center">
           <tr>
-            <th style="width:130px;">Chức vụ</th>
-            <th style="width:80px;">Xếp loại XS</th>
-            <th style="width:80px;">Tốt</th>
-            <th style="width:80px;">Khá</th>
-            <th style="width:80px;">TBK</th>
+            <th>Chức vụ</th><th>XS</th><th>Tốt</th><th>Khá</th><th>TBK</th>
           </tr>
         </thead>
         <tbody class="text-center">
@@ -542,7 +770,19 @@ $iv = [
       </table>
     </div>
   </td>
-  <td class="value-box text-center"><?= $phieu['diem_v3_can_bo_lop'] ?></td>
+  <td class="text-center">
+    <select name="diem_v3_can_bo_lop" id="opt3" class="form-select form-select-sm score-input lock-group">
+      <option value="">-- Chọn --</option>
+
+      <?php $valid=[4,6,7,8,9,10]; ?>
+      <?php foreach($valid as $v): ?>
+        <option value="<?=$v?>" <?= ($phieu['diem_v3_can_bo_lop']==$v?'selected':'') ?>>
+          <?=$v?>
+        </option>
+      <?php endforeach; ?>
+
+    </select>
+  </td>
 </tr>
 
 <!-- Tổng -->
@@ -597,7 +837,66 @@ document.getElementById('btnUpdateGV')?.addEventListener('click', function(e) {
     });
 });
 
+function updateLock() {
+
+    const opt1 = document.getElementById("opt1");
+    const opt2 = document.getElementById("opt2");
+    const opt3 = document.getElementById("opt3");
+
+    let v1 = opt1.value !== "";
+    let v2 = opt2.checked;
+    let v3 = opt3.value !== "";
+
+    // Reset trước khi xử lý
+    opt1.disabled = false;
+    opt2.disabled = false;
+    opt3.disabled = false;
+
+    // Nếu mục 1 được chọn
+    if (v1) {
+        opt2.checked = false;
+        opt3.value = "";
+        
+        opt2.disabled = true;
+        opt3.disabled = true;
+        return;
+    }
+
+    // Nếu mục 2 được chọn
+    if (v2) {
+        opt1.value = "";
+        opt3.value = "";
+
+        opt1.disabled = true;
+        opt3.disabled = true;
+        return;
+    }
+
+    // Nếu mục 3 được chọn
+    if (v3) {
+        opt1.value = "";
+        opt2.checked = false;
+
+        opt1.disabled = true;
+        opt2.disabled = true;
+        return;
+    }
+
+    // Nếu không chọn gì → mở tất cả
+    opt1.disabled = false;
+    opt2.disabled = false;
+    opt3.disabled = false;
+}
+
+// Lắng nghe sự kiện thay đổi
+document.querySelectorAll(".lock-group").forEach(el => {
+    el.addEventListener("change", updateLock);
+});
+
+// Chạy khi trang load
+document.addEventListener("DOMContentLoaded", updateLock);
 </script>
+
 
 
 </html>

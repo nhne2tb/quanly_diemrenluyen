@@ -89,14 +89,14 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
 }
 .action-btn.detail{color:var(--brand);border-color:rgba(0,74,173,.25);}
 .action-btn.detail:hover{background:var(--brand);color:#fff;}
-.action-btn.edit{color:#0d6efd;border-color:rgba(13,110,253,.25);}
-.action-btn.edit:hover{background:#0d6efd;color:#fff;}
+.action-btn.edit{color:#004aad;border-color:rgba(13,110,253,.25);}
+.action-btn.edit:hover{background:#004aad;color:#fff;}
 .action-btn.delete{color:#dc3545;border-color:rgba(220,53,69,.25);}
 .action-btn.delete:hover{background:#dc3545;color:#fff;}
-.action-btn.student{color:#198754;border-color:rgba(25,135,84,.25);}
-.action-btn.student:hover{background:#198754;color:#fff;}
-.action-btn.add{color:#ff9800;border-color:rgba(255,152,0,.25);}
-.action-btn.add:hover{background:#ff9800;color:#fff;}
+.action-btn.student{color:#004aad;border-color:rgba(25,135,84,.25);}
+.action-btn.student:hover{background:#004aad;color:#fff;}
+.action-btn.add{color:#004aad;border-color:rgba(255,152,0,.25);}
+.action-btn.add:hover{background:#004aad;color:#fff;}
 .details-row{background:#f9fafb;}
 .details-content{padding:1rem 1.5rem;}
 .details-content .item{margin-bottom:.4rem;font-size:.9rem;}
@@ -106,12 +106,18 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
 <body>
 
 <div class="wrap">
+<div class="d-flex justify-content-end mb-3">
+    <a href="<?= BASE_URL ?>index.php?route=dashboard"
+       class="btn btn-sm rounded-pill"
+       style="border:1px solid #004aad; color:#004aad; font-weight:600;">
+        <i class="bi bi-arrow-left-circle"></i> Quay lại
+    </a>
+</div>
   
-  <a href="index.php?route=dashboard" class="btn btn-outline-primary d-flex align-items-center gap-2 px-3">
+  <!-- <a href="index.php?route=dashboard" class="btn btn-outline-primary d-flex align-items-center gap-2 px-3">
   <i class="bi bi-house-door-fill"></i>
   <span>Về trang Dashboard</span>
-</a>
- <br>
+</a> -->
 
   <div class="main-card">
     <div class="card-header">
@@ -125,7 +131,7 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
           <input id="tableSearch" type="search" class="form-control border-start-0" placeholder="Tìm kiếm lớp...">
         </div>
   <a href="index.php?route=them_lop" class="btn btn-brand d-flex align-items-center px-3 py-1" style="white-space:nowrap;">
-    <i class="bi bi-plus-lg me-1"></i> Thêm Lớp
+    <i class=""></i> Thêm Lớp
   </a>      </div>
     </div>
 
@@ -155,16 +161,16 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
                   <i class="bi bi-chevron-down"></i> Chi tiết
                 </button>
                 <a href="index.php?route=sua_lop&ma=<?= urlencode($l['ma_lop']) ?>" class="action-btn edit">
-                  <i class="bi bi-pencil-square"></i> Sửa
+                  <i class=""></i> Sửa
                 </a>
                 <a href="index.php?route=xoa_lop&ma=<?= urlencode($l['ma_lop']) ?>" class="action-btn delete" onclick="return confirm('Bạn có chắc muốn xóa lớp này?')">
-                  <i class="bi bi-trash3"></i> Xóa
+                  <i class=""></i> Xóa
                 </a>
                 <a href="index.php?route=danhsach_sv&lop=<?= urlencode($l['ma_lop']) ?>" class="action-btn student">
                   <i class="bi bi-people-fill"></i> SV
                 </a>
                 <a href="index.php?route=them_sv&lop=<?= urlencode($l['ma_lop']) ?>" class="action-btn add">
-                  <i class="bi bi-person-plus-fill"></i> Thêm SV
+                  <i class=""></i> Thêm SV
                 </a>
               </div>
             </td>

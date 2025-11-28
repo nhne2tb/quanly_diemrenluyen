@@ -247,13 +247,13 @@ footer small {
           </a>
         </div>
 
-<div class="col-md-6 col-sm-6">
+<!-- <div class="col-md-6 col-sm-6">
   <a href="<?= BASE_URL ?>index.php?route=admin_lop" class="quick-card">
     <i class="bi bi-people-fill"></i>
     <h6>Quản lý danh sách lớp</h6>
     <p>Xem, sửa, xóa lớp và thêm sinh viên vào từng lớp</p>
   </a>
-</div>
+</div> -->
 
 
       </div>
