@@ -238,7 +238,30 @@ input.form-control[type="number"] {
   -webkit-appearance: none !important;
   appearance: textfield !important;
 }
+/* Nút Quay lại */
+.btn-outline-primary {
+    border-color: #004aad !important;
+    color: #004aad !important;
+    font-weight: 600;
+}
 
+.btn-outline-primary:hover {
+    background: #004aad !important;
+    color: #fff !important;
+}
 /* ===== Phieu ren luyen sinh vien CSS ===== */ 
 /* assets/css/phieu_ren_luyen_sv.css */
+footer.footer {
+    margin-top: 50px !important;
+    background: #fff;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #ddd;
+}
 
+footer.footer {
+    position: relative !important;
+    bottom: 0 !important;
+    left: 0;
+    right: 0;
+}

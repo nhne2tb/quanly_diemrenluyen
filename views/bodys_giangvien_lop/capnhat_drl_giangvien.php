@@ -87,6 +87,18 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
     .text-primary-title { color:#004aad !important; }
     .table thead th { background:#004aad; color:white; }
     .btn-compact { padding:3px 8px; font-size:12px; }
+
+    /* Nút Quay lại */
+.btn-outline-primary {
+    border-color: #004aad !important;
+    color: #004aad !important;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: #004aad !important;
+    color: #fff !important;
+}
 </style>
 </head>
 
@@ -269,7 +281,7 @@ foreach ($dsPhieu as $row): ?>
     <!-- Xem phiếu -->
     <td class="text-center">
         <?php if ($row['id']): ?>
-            <a href="<?= BASE_URL ?>index.php?route=xem_phieu&id=<?= $row['id'] ?>&table=<?= $table_prl ?>"
+            <a href="<?= BASE_URL ?>index.php?route=xem_phieu_ren_luyen_sv&id=<?= $row['id'] ?>&table=<?= $table_prl ?>"
                class="btn btn-outline-primary btn-compact">
                 Xem
             </a>

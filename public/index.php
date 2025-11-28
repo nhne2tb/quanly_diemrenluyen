@@ -14,7 +14,9 @@ require_once __DIR__ . '/../config/db.php';
 // (Tùy chọn) Header chung cho giao diện login
 $route = $_GET['route'] ?? '';
 
-if ($route !== 'capnhat_trang_thai_lop') {
+$apiRoutes = ['capnhat_trang_thai_lop', 'capnhat_phieu_gv']; // thêm route mới
+
+if (!in_array($route, $apiRoutes, true)) {
     require_once __DIR__ . '/../views/headers/header_login.php';
 }
 
@@ -152,6 +154,12 @@ switch ($route) {
     require_once __DIR__ . '/../views/phieu_ren_luyen/xem_phieu_ren_luyen_sv.php';
     break;
 
+  // view: views/bodys_giangvien_lop/capnhat_phieu_gv.php
+  case 'capnhat_phieu_gv':
+    require_once __DIR__ . '/../views/bodys_giangvien_lop/capnhat_phieu_gv.php';
+    break;
+
+    
 
 
 

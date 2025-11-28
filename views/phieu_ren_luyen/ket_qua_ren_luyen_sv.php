@@ -207,6 +207,16 @@ h3, .page-title, .container-box h3 {
     background: #eef4ff !important;
 }
 
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 10px 0;
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+}
+
 </style>
 
 </head>

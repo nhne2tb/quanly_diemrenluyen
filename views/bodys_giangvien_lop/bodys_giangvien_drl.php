@@ -113,6 +113,18 @@ function tableExists(PDO $conn, $table) {
     text-decoration: underline;
 }
 
+
+/* Nút Quay lại */
+.btn-outline-primary {
+    border-color: #004aad !important;
+    color: #004aad !important;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: #004aad !important;
+    color: #fff !important;
+}
 </style>
 
 <div class="container py-4">
@@ -126,6 +138,8 @@ function tableExists(PDO $conn, $table) {
         ← Quay lại
     </a> -->
 
+
+    
     <a href="<?= BASE_URL ?>index.php?route=dashboard" 
    class="btn btn-outline-primary btn-sm rounded-pill">
     <i class="bi bi-arrow-left-circle"></i> Quay lại

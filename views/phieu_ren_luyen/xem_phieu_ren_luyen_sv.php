@@ -5,6 +5,8 @@ require_once __DIR__ . '/../../config/config.php';
 require_once __DIR__ . '/../../config/db.php';
 
 if (session_status() === PHP_SESSION_NONE) session_start();
+$userType = $_SESSION['user']['type'] ?? '';
+$isGV = ($userType === 'bodys_giangvien'); // chỉ CVHT mới được sửa
 
 // ==================== KIỂM TRA ====================
 if (!isset($_GET['id']) || !isset($_GET['table'])) {
@@ -89,6 +91,18 @@ body {
 .table-bordered th {
   vertical-align: middle;
 }
+
+/* Nút Quay lại */
+.btn-outline-primary {
+    border-color: #004aad !important;
+    color: #004aad !important;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background: #004aad !important;
+    color: #fff !important;
+}
 </style>
 </head>
 
@@ -96,19 +110,39 @@ body {
 
 <div class="container-box">
 
-<!-- HEADER -->
-<div class="d-flex justify-content-between align-items-center">
-    <a href="<?= BASE_URL ?>index.php?route=ket_qua_ren_luyen_sv" 
-       class="btn btn-outline-primary btn-sm rounded-pill">
-        ← Quay lại
-    </a>
 
-    <h3 class="text-center flex-grow-1 m-0" style="color:#004aad; font-weight:800;">
-        PHIẾU ĐÁNH GIÁ RÈN LUYỆN – CHI TIẾT
-    </h3>
 
-    <div style="width:90px;"></div>
-</div>
+  <div class="d-flex justify-content-between align-items-center mb-3">
+<h3 class="m-0 fw-bold" style="color:#004aad;">
+  PHIẾU ĐÁNH GIÁ RÈN LUYỆN – CHI TIẾT
+</h3>
+
+
+<?php
+$backRoute = "ket_qua_ren_luyen_sv";
+
+if (isset($_SESSION['user']['type'])) {
+    if ($_SESSION['user']['type'] === 'bodys_giangvien') {
+        $backRoute = "bodys_giangvien_drl";
+    }
+    if ($_SESSION['user']['type'] === 'bodys_tapthelop') {
+        $backRoute = "dashboard";
+    }
+
+
+}
+?>
+<a href="<?= BASE_URL ?>index.php?route=<?= $backRoute ?>"
+   class="btn btn-outline-primary btn-sm rounded-pill">
+    <i class="bi bi-arrow-left-circle"></i> Quay lại
+</a>
+
+
+  </div>
+
+
+
+
 
 <hr>
 
@@ -137,6 +171,13 @@ body {
 <!-- BẢNG CHI TIẾT -->
 <div class="table-responsive mt-4">
 <table class="table table-bordered">
+  
+
+<?php if($isGV): ?>
+<form id="formGV" method="POST">
+    <input type="hidden" name="id" value="<?= $id ?>">
+    <input type="hidden" name="table" value="<?= $table ?>">
+<?php endif; ?>
 
 <thead>
 <tr>
@@ -182,7 +223,17 @@ body {
   <td class="text-center">3</td>
   <td>Tinh thần vượt khó</td>
   <td class="text-center">02</td>
-  <td class="text-center value-box"><?= $phieu['diem_i3_vuot_kho'] ?></td>
+<td class="text-center">
+<?php if($isGV): ?>
+    <select name="diem_i3_vuot_kho" class="form-select form-select-sm score-input">
+        <?php for($i=0;$i<=2;$i++): ?>
+            <option value="<?=$i?>" <?= ($phieu['diem_i3_vuot_kho']==$i?'selected':'') ?>><?=$i?></option>
+        <?php endfor; ?>
+    </select>
+<?php else: ?>
+    <span class="value-box"><?= $phieu['diem_i3_vuot_kho'] ?></span>
+<?php endif; ?>
+</td>
 </tr>
 
 <!-- I.4 -->
@@ -217,7 +268,7 @@ foreach ($gpaList as $val => $label):
 <?php endforeach; ?>
 
 <!-- Điểm thưởng -->
-<tr>
+<!-- <tr>
   <td colspan="4">
     <strong>* Điểm thưởng</strong> 
     <span style="font-style:italic;">(tối đa 20 điểm)</span>
@@ -227,6 +278,35 @@ foreach ($gpaList as $val => $label):
       – Cấp tỉnh: 03 điểm
     </div>
 
+    <div style="margin-top:8px;">
+      <strong>Điểm đã cộng:</strong>
+      <span class="value-box"><?= $phieu['diem_i_thuong'] ?></span>
+    </div>
+  </td>
+</tr> -->
+
+
+<tr>
+  <td colspan="3" class="text-start">
+    <strong>* Điểm thưởng 
+      <span style="font-style: italic; font-weight: bold;">
+        (được cộng nhưng tổng số điểm của tiêu chí này không vượt quá 20 điểm)
+      </span>
+    </strong><br>
+
+    <div style="margin-left: 20px;">
+      Được các cấp khen thưởng khi tham gia các hoạt động trên, điểm thưởng như sau:
+    <div style="margin-left: 20px; margin-top: 5px;">
+      – Cấp khoa: 01 điểm<br>
+      – Cấp trường: 02 điểm<br>
+      – Cấp tỉnh hoặc tương đương: 03 điểm
+    </div>
+
+    </div>
+  </td>
+
+  <!-- CỘT LỰA CHỌN ĐIỂM -->
+  <td class="text-center">
     <div style="margin-top:8px;">
       <strong>Điểm đã cộng:</strong>
       <span class="value-box"><?= $phieu['diem_i_thuong'] ?></span>
@@ -318,7 +398,7 @@ $rows = [
 </tr>
 
 <!-- Điểm thưởng -->
-<tr>
+<!-- <tr>
   <td colspan="4" class="text-start">
     <strong>* Điểm thưởng</strong>
     <span style="font-style: italic;">(tối đa không vượt quá 20 điểm)</span><br>
@@ -341,7 +421,42 @@ $rows = [
       <span class="value-box"> <?= $phieu['diem_iii_thuong'] ?> </span>
     </div>
   </td>
+</tr> -->
+
+
+<!-- Điểm thưởng III -->
+<tr>
+  <td colspan="3" class="text-start">
+    <strong>* Điểm thưởng</strong>
+    <span style="font-style: italic; font-weight: bold;">
+      (được cộng nhưng tổng số điểm của tiêu chí này không vượt quá 20 điểm)
+    </span><br>
+
+    <div style="margin-left:20px; margin-top:5px;">
+      Đạt danh hiệu “Sinh viên 5 tốt”, hoặc được khen thưởng cuộc thi văn nghệ, thể thao...
+      <span style="font-style: italic;">
+        (Nếu tập thể lớp đạt thành tích thì tất cả thành viên đều được hưởng)
+      </span>
+    </div>
+
+    <div style="margin-left: 20px; margin-top: 5px;">
+      – Cấp khoa: 01 điểm<br>
+      – Cấp trường: 02 điểm<br>
+      – Cấp tỉnh hoặc tương đương: 03 điểm
+    </div>
+
+  </td>
+
+  <!-- Cột chọn điểm -->
+  <td class="text-center">
+    <div class="mt-2">
+      <strong>Điểm đã cộng:</strong>
+      <span class="value-box"> <?= $phieu['diem_iii_thuong'] ?> </span>
+    </div>
+  </td>
 </tr>
+
+
 
 <!-- IV -->
 <tr class="section-header">
@@ -383,7 +498,7 @@ $iv = [
 
 <!-- Mục 1 -->
 <tr>
-  <td>1</td>
+  <td class="text-center">1</td>
   <td class="text-start">
     Không là cán bộ lớp, Đoàn, Hội nhưng thực hiện tốt nhiệm vụ
   </td>
@@ -393,7 +508,7 @@ $iv = [
 
 <!-- Mục 2 -->
 <tr>
-  <td>2</td>
+  <td class="text-center">2</td>
   <td class="text-start">
     Là cán bộ lớp, cán bộ Đoàn, Hội nhưng không thực hiện tốt nhiệm vụ được giao,
     không gương mẫu trước tập thể
@@ -406,7 +521,7 @@ $iv = [
 
 <!-- Mục 3 -->
 <tr>
-  <td>3</td>
+  <td class="text-center">3</td>
   <td colspan="2" class="text-start">
     Nếu là cán bộ lớp, cán bộ Đoàn, Hội thì căn cứ vào kết quả thi đua của tập thể lớp quy định như sau:
     <div class="table-responsive mt-2" style="margin-left:15px;max-width:500px;">
@@ -440,9 +555,49 @@ $iv = [
 
 </tbody>
 </table>
+
+
+<?php if ($isGV): ?>
+</form>  <!-- thêm dòng này -->
+<button id="btnUpdateGV" class="btn btn-primary mt-3">
+    💾 Lưu cập nhật
+</button>
+<?php endif; ?>
+
+
+
 </div>
 
 </div>
 
 </body>
+<script>
+document.getElementById('btnUpdateGV')?.addEventListener('click', function(e) {
+    e.preventDefault();
+
+    let form = document.getElementById("formGV");
+    let formData = new FormData(form);
+
+    fetch("<?= BASE_URL ?>index.php?route=capnhat_phieu_gv", {
+        method: "POST",
+        body: formData
+    })
+    .then(r => r.json())
+    .then(res => {
+        if (res.status === "success") {
+            alert("Đã cập nhật thành công!\nTổng điểm mới: " + res.tong_diem);
+            location.reload();
+        } else {
+            alert(res.msg);
+        }
+    })
+    .catch(err => {
+        alert("Lỗi kết nối server!");
+        console.error(err);
+    });
+});
+
+</script>
+
+
 </html>

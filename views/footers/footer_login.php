@@ -3,16 +3,24 @@
  // views/footers/footer_login.php
  ?>
 <style>
+/* FOOTER ĐẸP – KHÔNG NHẢY */
 .footer {
   text-align: center;
-  color: #666;
+  color: #555;
   font-size: 0.9rem;
-  padding: 1.2rem 0;
+  padding: 20px 0;
   background: #fff;
-  margin-top: 3rem;
   border-top: 1px solid #ddd;
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.04);
+  box-shadow: 0 -2px 6px rgba(0,0,0,0.05);
+
+  /* Quan trọng: chống nhảy */
+  position: relative !important;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
 }
+
+
 </style>
 
 <footer class="footer">

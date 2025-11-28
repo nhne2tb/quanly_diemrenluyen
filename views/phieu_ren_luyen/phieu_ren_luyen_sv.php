@@ -192,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
 
 <div class="container-box">
   <!-- 🇻🇳 Quốc hiệu -->
-  <div class="d-flex justify-content-between align-items-center mb-3">
+  <!-- <div class="d-flex justify-content-between align-items-center mb-3">
 
 <a href="<?= BASE_URL ?>index.php?route=bodys_sinhvien" 
    class="btn btn-outline-primary btn-sm rounded-pill">
@@ -202,8 +202,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save'])) {
     <h3 class="flex-grow-1 text-center m-0">PHIẾU ĐÁNH GIÁ KẾT QUẢ RÈN LUYỆN </h3>
 
     
-    <div style="width:80px;"></div> <!-- giữ cân đối khi căn giữa -->
+    <div style="width:80px;"></div> 
     
+  </div> -->
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+<h3 class="m-0 fw-bold" style="color:#004aad;">
+  PHIẾU ĐÁNH GIÁ RÈN LUYỆN
+</h3>
+
+
+<a href="<?= BASE_URL ?>index.php?route=bodys_sinhvien" 
+   class="btn btn-outline-primary btn-sm rounded-pill">
+    <i class="bi bi-arrow-left-circle"></i> Quay lại
+</a>
+
   </div>
 
 
@@ -470,7 +483,7 @@ foreach ($gpaOptions as $g): ?>
 <?php endforeach; ?>
 
 <!-- Điểm thưởng -->
-<tr>
+<!-- <tr>
   <td colspan="4" class="text-start">
     <strong>* Điểm thưởng 
       <span style="font-style: italic; font-weight: bold;">
@@ -486,7 +499,39 @@ foreach ($gpaOptions as $g): ?>
       </div>
     </div>
   </td>
+</tr> -->
+<!-- Điểm thưởng -->
+<tr>
+  <td colspan="3" class="text-start">
+    <strong>* Điểm thưởng 
+      <span style="font-style: italic; font-weight: bold;">
+        (được cộng nhưng tổng số điểm của tiêu chí này không vượt quá 20 điểm)
+      </span>
+    </strong><br>
+
+    <div style="margin-left: 20px;">
+      Được các cấp khen thưởng khi tham gia các hoạt động trên, điểm thưởng như sau:
+    <div style="margin-left: 20px; margin-top: 5px;">
+      – Cấp khoa: 01 điểm<br>
+      – Cấp trường: 02 điểm<br>
+      – Cấp tỉnh hoặc tương đương: 03 điểm
+    </div>
+
+    </div>
+  </td>
+
+  <!-- CỘT LỰA CHỌN ĐIỂM -->
+  <td class="text-center">
+    <select name="diem_i_thuong" class="form-select form-select-sm score-input">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
+  </td>
 </tr>
+
+
 
 <!-- II -->
 <tr class="section-header">
@@ -592,7 +637,7 @@ $rows = [
 </tr>
 
 <!-- Điểm thưởng -->
-<tr>
+<!-- <tr>
   <td colspan="4" class="text-start">
     <strong>* Điểm thưởng 
       <span style="font-style: italic; font-weight: bold;">
@@ -611,6 +656,41 @@ $rows = [
       <div>– Cấp trường: 02 điểm</div>
       <div>– Cấp tỉnh hoặc tương đương: 03 điểm</div>
     </div>
+  </td>
+</tr> -->
+
+
+<!-- Điểm thưởng III -->
+<tr>
+  <td colspan="3" class="text-start">
+    <strong>* Điểm thưởng</strong>
+    <span style="font-style: italic; font-weight: bold;">
+      (được cộng nhưng tổng số điểm của tiêu chí này không vượt quá 20 điểm)
+    </span><br>
+
+    <div style="margin-left:20px; margin-top:5px;">
+      Đạt danh hiệu “Sinh viên 5 tốt”, hoặc được khen thưởng cuộc thi văn nghệ, thể thao...
+      <span style="font-style: italic;">
+        (Nếu tập thể lớp đạt thành tích thì tất cả thành viên đều được hưởng)
+      </span>
+    </div>
+
+    <div style="margin-left: 20px; margin-top: 5px;">
+      – Cấp khoa: 01 điểm<br>
+      – Cấp trường: 02 điểm<br>
+      – Cấp tỉnh hoặc tương đương: 03 điểm
+    </div>
+
+  </td>
+
+  <!-- Cột chọn điểm -->
+  <td class="text-center">
+    <select name="diem_iii_thuong" class="form-select form-select-sm text-center score-input">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+    </select>
   </td>
 </tr>
 
@@ -985,4 +1065,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </body>
 
 </html>
+
 

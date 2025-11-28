@@ -114,7 +114,49 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <i class="bi bi-box-arrow-right"></i> Đăng xuất
 </a>
 <br>
-</BR>
+<!-- ===== BỘ LỌC ===== -->
+<div class="card p-3 mb-3">
+  <div class="row g-3">
+
+    <!-- Lọc theo trạng thái lớp -->
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Trạng thái lớp</label>
+        <select id="filterLop" class="form-select form-select-sm">
+            <option value="">Tất cả</option>
+            <option value="Đã duyệt">Đã duyệt</option>
+            <option value="Trả về">Trả về</option>
+            <option value="Chưa duyệt">Chưa duyệt</option>
+        </select>
+    </div>
+
+    <!-- Lọc theo học kỳ -->
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Học kỳ</label>
+        <select id="filterHK" class="form-select form-select-sm">
+            <option value="">Tất cả</option>
+            <option value="I">I</option>
+            <option value="II">II</option>
+            <option value="Hè">Hè</option>
+        </select>
+    </div>
+
+    <!-- Lọc theo năm -->
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Năm học</label>
+        <input type="text" id="filterNam" class="form-control form-control-sm"
+               placeholder="VD: 2025–2026">
+    </div>
+
+    <!-- Lọc theo tên hoặc MSSV -->
+    <div class="col-md-3">
+        <label class="form-label fw-bold">Tìm nhanh</label>
+        <input type="text" id="filterText" class="form-control form-control-sm"
+               placeholder="Nhập tên hoặc MSSV...">
+    </div>
+
+  </div>
+</div>
+
     <div class="card shadow">
         <div class="card-header fw-bold bg-white">
             Danh sách sinh viên lớp <?= strtoupper($ma_lop) ?>
@@ -225,7 +267,7 @@ foreach ($dsPhieu as $row): ?>
 
     <td class="text-center">
         <?php if ($row['id']): ?>
-            <a href="<?= BASE_URL ?>index.php?route=xem_phieu&id=<?= $row['id'] ?>&table=<?= $table_prl ?>"
+            <a href="<?= BASE_URL ?>index.php?route=xem_phieu_ren_luyen_sv&id=<?= $row['id'] ?>&table=<?= $table_prl ?>"
                class="btn btn-outline-primary btn-compact">Xem</a>
         <?php else: ?>
             —
@@ -344,6 +386,38 @@ body: "action=trave&id=" + currentId +
 };
 
 attachEvents();
+
+
+function applyFilters() {
+
+    let lop  = document.getElementById('filterLop').value.toLowerCase();
+    let hk   = document.getElementById('filterHK').value.toLowerCase();
+    let nam  = document.getElementById('filterNam').value.toLowerCase();
+    let text = document.getElementById('filterText').value.toLowerCase();
+
+    document.querySelectorAll('tbody tr').forEach(tr => {
+
+        let colLop  = tr.querySelector('.col-lop')?.innerText.trim().toLowerCase() || "";
+        let colHK   = tr.children[3]?.innerText.trim().toLowerCase() || "";
+        let colNam  = tr.children[4]?.innerText.trim().toLowerCase() || "";
+        let colText = tr.innerText.toLowerCase();
+
+        // ⭐ KHÔNG DÙNG includes() cho Học kỳ vì gây trùng I / II
+        let match =
+            (lop === "" || colLop === lop) &&
+            (hk  === "" || colHK === hk) &&
+            (nam === "" || colNam === nam) &&
+            (text === "" || colText.includes(text));
+
+        tr.style.display = match ? "" : "none";
+    });
+}
+
+
+
+document.querySelectorAll('#filterLop, #filterHK, #filterNam, #filterText')
+        .forEach(el => el.addEventListener('input', applyFilters));
+
 </script>
 
 
