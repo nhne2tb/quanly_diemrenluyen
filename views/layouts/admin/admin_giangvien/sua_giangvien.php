@@ -8,8 +8,9 @@ $msgType = 'success';
 // ====== Lấy mã GV từ URL ======
 $ma_gv = $_GET['ma'] ?? '';
 if (!$ma_gv) {
-    header('Location: gd_giangvien.php');
-    exit;
+header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien');
+exit;
+
 }
 
 // ====== Lấy thông tin GV ======
@@ -17,8 +18,9 @@ $stmt = $conn->prepare("SELECT * FROM tb_giangvien WHERE ma_gv = ?");
 $stmt->execute([$ma_gv]);
 $gv = $stmt->fetch(PDO::FETCH_ASSOC);
 if (!$gv) {
-    header('Location: gd_giangvien.php?msg='.urlencode('Không tìm thấy giảng viên').'&type=danger');
-    exit;
+header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien&msg=' . urlencode('Không tìm thấy giảng viên') . '&type=danger');
+exit;
+
 }
 
 // ====== Lấy danh sách khoa ======
@@ -56,8 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $ma_gv
         ]);
 
-        header('Location: gd_giangvien.php?msg='.urlencode('Cập nhật giảng viên thành công').'&type=success');
-        exit;
+header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien&msg=' . urlencode('Cập nhật giảng viên thành công') . '&type=success');
+exit;
+
     } catch (Exception $e) {
         $msg = $e->getMessage();
         $msgType = 'danger';
@@ -81,7 +84,9 @@ label.required::after { content:" *"; color:red; }
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
       <h5 class="mb-0"><i class="bi bi-pencil-square me-2"></i> Sửa Giảng viên: <?= htmlspecialchars($gv['ma_gv']) ?></h5>
-      <a href="gd_giangvien.php" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> Quay lại</a>
+<a href="<?= BASE_URL ?>index.php?route=gd_giangvien" class="btn btn-light btn-sm">
+    <i class="bi bi-arrow-left"></i> Quay lại
+</a>
     </div>
 
     <div class="card-body">

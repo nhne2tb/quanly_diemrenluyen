@@ -99,6 +99,54 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
     background: #004aad !important;
     color: #fff !important;
 }
+
+/* ===== FIX CĂN GIỮA HOÀN HẢO TOÀN BẢNG ===== */
+
+/* Căn đều hàng */
+.table td, .table th {
+    vertical-align: middle !important;
+    padding-top: 12px !important;
+    padding-bottom: 12px !important;
+}
+
+/* Badge */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 26px;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+}
+
+/* Nút nhỏ */
+.btn-compact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px !important;
+    padding: 0 14px !important;
+    font-size: 12px !important;
+    border-radius: 6px !important;
+    white-space: nowrap;
+}
+
+/* Nút Xem là outline */
+.btn-outline-primary {
+    height: 28px !important;
+    padding: 0 14px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cột có nội dung dài (ghi chú) cũng căn giữa */
+.col-ghichu-lop,
+.col-ghichu-cvht {
+    vertical-align: middle !important;
+}
+
 </style>
 </head>
 

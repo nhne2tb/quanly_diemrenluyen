@@ -1,11 +1,13 @@
 <?php
+require_once __DIR__ . '/../../../../config/config.php';   // để dùng BASE_URL
 require_once __DIR__ . '/../../../../config/db.php';
+
 $conn = Database::connect();
 
 // ====== Lấy mã GV ======
 $ma_gv = $_GET['ma'] ?? '';
 if (!$ma_gv) {
-    header('Location: gd_giangvien.php');
+    header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien');
     exit;
 }
 
@@ -15,7 +17,7 @@ $stmt->execute([$ma_gv]);
 $gv = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$gv) {
-    header('Location: gd_giangvien.php?msg='.urlencode('Không tìm thấy giảng viên').'&type=danger');
+    header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien&msg=' . urlencode('Không tìm thấy giảng viên') . '&type=danger');
     exit;
 }
 
@@ -24,10 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $delete = $conn->prepare("DELETE FROM tb_giangvien WHERE ma_gv = ?");
         $delete->execute([$ma_gv]);
-        header('Location: gd_giangvien.php?msg='.urlencode('Đã xóa giảng viên thành công').'&type=success');
+
+        header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien&msg=' . urlencode('Đã xóa giảng viên thành công') . '&type=success');
         exit;
+
     } catch (Exception $e) {
-        header('Location: gd_giangvien.php?msg='.urlencode('Lỗi khi xóa: '.$e->getMessage()).'&type=danger');
+
+        header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien&msg=' . urlencode('Lỗi khi xóa: '.$e->getMessage()) . '&type=danger');
         exit;
     }
 }
@@ -59,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         Hành động này có thể ảnh hưởng đến các lớp hoặc dữ liệu liên quan.
       </div>
       <form method="post" class="d-flex justify-content-end gap-2 mt-4">
-        <a href="gd_giangvien.php" class="btn btn-secondary">
+        <a href="<?= BASE_URL ?>index.php?route=gd_giangvien" class="btn btn-secondary">
           <i class="bi bi-arrow-left"></i> Hủy
         </a>
         <button type="submit" class="btn btn-danger">

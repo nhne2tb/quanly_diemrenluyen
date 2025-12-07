@@ -1,4 +1,5 @@
 <?php
+
 // views/bodys_sinhvien/bodys_sinhvien.php
 // ================== CẤU HÌNH DỰ ÁN ==================
 if (session_status() === PHP_SESSION_NONE) {
@@ -43,117 +44,8 @@ if (!$student) {
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
-<style>
-:root {
-  --brand: #004aad;
-  --accent: #004aad;
-  --bg: linear-gradient(135deg, #eef3f9 0%, #f7f9fc 100%);
-}
+<link rel="stylesheet" href="<?= BASE_URL ?>assets/css/bodys_sinhvien.css">
 
-/* --------------------- BODY ---------------------- */
-body {
-  background: var(--bg);
-  font-family: 'Segoe UI', sans-serif;
-  color: #333;
-  padding: 24px;
-}
-
-/* -------------------- TIÊU ĐỀ -------------------- */
-h4.page-title {
-  font-weight: 800;
-  color: var(--brand);
-  text-align: center;
-  margin-bottom: 1.5rem;
-  letter-spacing: 0.5px;
-  position: relative;
-}
-
-/* -------------------- NÚT ĐĂNG XUẤT -------------------- */
-.logout-top-left {
-  position: absolute;
-  top: 10px;
-  left: 15px;
-  color: #004aad;
-  font-weight: 700;
-  font-size: 15px;
-  display: flex;
-  align-items: center;
-  transition: 0.2s ease-in-out;
-  text-decoration: none;
-}
-
-.logout-top-left i {
-  color: #004aad;
-  font-size: 16px;
-  line-height: 1;
-}
-
-.logout-top-left:hover {
-  color: #004aad;
-  text-decoration: underline;
-}
-
-/* --------------------- CARD ---------------------- */
-.card {
-  border: none;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, .75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  transition: .25s ease;
-}
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-/* ---------------- THÔNG TIN SINH VIÊN ---------------- */
-.student-info img {
-  border: 4px solid #e9f2ff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: .25s;
-}
-.student-info img:hover {
-  transform: scale(1.08) rotate(1deg);
-}
-.student-name {
-  font-weight: 600;
-  font-size: 1.05rem;
-  margin-bottom: 4px;
-}
-.badge-status {
-  background: var(--brand);
-  font-size: 0.8rem;
-  padding: 6px 12px;
-  border-radius: 999px;
-}
-.info-line {
-  margin-bottom: 4px;
-  color: #555;
-  font-size: 0.95rem;
-}
-.info-line b {
-  font-weight: 600;
-  color: #2e2e2e;
-}
-
-/* -------------------- CARD CHỨC NĂNG -------------------- */
-.quick .card {
-  transition: all .2s ease;
-  cursor: pointer;
-}
-.quick .card:hover {
-  transform: translateY(-4px);
-  background: linear-gradient(135deg, #e9f2ff, #f5f8ff);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-.quick .card:hover i { color: var(--accent); }
-.quick h6 { font-size: 0.95rem; }
-.quick p { font-size: 0.8rem; }
-.icon-xl { font-size: 32px; color: var(--brand); }
-.container-xxl { max-width: 1180px; }
-</style>
 </head>
 
 <body>
@@ -162,7 +54,7 @@ h4.page-title {
   <!-- TIÊU ĐỀ -->
   <div class="position-relative">
     <h4 class="page-title">
-      <i class="bi bi-award me-2"></i>HỆ THỐNG QUẢN LÝ ĐIỂM RÈN LUYỆN SINH VIÊN
+      <i class=""></i>HỆ THỐNG QUẢN LÝ ĐIỂM RÈN LUYỆN SINH VIÊN
     </h4>
   </div>
 

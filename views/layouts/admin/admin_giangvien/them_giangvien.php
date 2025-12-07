@@ -35,15 +35,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // --- Thêm mới ---
-        $stmt = $conn->prepare("
-            INSERT INTO tb_giangvien
-            (ma_gv, ho_ten, gioi_tinh, ngay_sinh, hoc_ham, hoc_vi, chuc_danh, chuyen_mon, nhiem_vu, nam_cong_tac, email, sdt, bo_mon, ma_khoa, avatar) 
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
-        ");
-        $stmt->execute([$ma_gv, $ho_ten, $gioi_tinh, $ngay_sinh, $hoc_ham, $hoc_vi, $chuc_danh, $chuyen_mon, $nhiem_vu, $nam_cong_tac, $email, $sdt, $bo_mon, $ma_khoa, $avatar]);
+$mat_khau = password_hash('123456a', PASSWORD_DEFAULT);
 
-        header('Location: gd_giangvien.php?msg='.urlencode('Thêm giảng viên thành công').'&type=success');
-        exit;
+$stmt = $conn->prepare("
+    INSERT INTO tb_giangvien
+    (ma_gv, ho_ten, gioi_tinh, ngay_sinh, hoc_ham, hoc_vi, chuc_danh, 
+     chuyen_mon, nhiem_vu, nam_cong_tac, email, sdt, bo_mon, 
+     ma_khoa, avatar, mat_khau) 
+    VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+");
+
+$stmt->execute([
+    $ma_gv,          // 1
+    $ho_ten,         // 2
+    $gioi_tinh,      // 3
+    $ngay_sinh,      // 4
+    $hoc_ham,        // 5
+    $hoc_vi,         // 6
+    $chuc_danh,      // 7
+    $chuyen_mon,     // 8
+    $nhiem_vu,       // 9
+    $nam_cong_tac,   // 10
+    $email,          // 11
+    $sdt,            // 12
+    $bo_mon,         // 13
+    $ma_khoa,        // 14
+    $avatar,         // 15
+    $mat_khau        // 16
+]);
+
+
+
+header('Location: ' . BASE_URL . 'index.php?route=gd_giangvien&msg=' . urlencode('Thêm giảng viên thành công') . '&type=success');
+exit;
+
     } catch (Exception $e) {
         $msg = $e->getMessage();
         $msgType = 'danger';
@@ -67,7 +92,15 @@ label.required::after { content:" *"; color:red; }
   <div class="card shadow-sm">
     <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
       <h5 class="mb-0"><i class="bi bi-person-plus-fill me-2"></i> Thêm Giảng viên</h5>
-      <a href="gd_giangvien.php" class="btn btn-light btn-sm"><i class="bi bi-arrow-left"></i> Quay lại</a>
+<!-- <a href="<?= BASE_URL ?>index.php?route=gd_giangvien" class="btn btn-light btn-sm">
+    <i class="bi bi-arrow-left"></i> Quay lại
+</a> -->
+
+    <a href="<?= BASE_URL ?>index.php?route=gd_giangvien"
+       class="btn btn-sm rounded-pill"
+       style="border:1px solid #ffffffff; color:#ffffffff; font-weight:600;">
+        <i class="bi bi-arrow-left-circle"></i> Quay lại
+    </a>
     </div>
 
     <div class="card-body">

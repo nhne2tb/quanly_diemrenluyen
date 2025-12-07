@@ -33,12 +33,12 @@ switch ($route) {
   // 1️⃣ Trang chủ / giao diện đăng nhập
   case '':
   case 'bodys_login':
-    require_once __DIR__ . '/../views/bodys/bodys_login.php';
+    require_once __DIR__ . '/../controllers/bodys_login.php';
     break;
 
   // 2️⃣ Xử lý đăng nhập
   case 'login':
-    require_once __DIR__ . '/../views/bodys/login.php';
+    require_once __DIR__ . '/../controllers/login.php';
     break;
 
   // gd_giangvien
@@ -158,7 +158,32 @@ switch ($route) {
   case 'capnhat_phieu_gv':
     require_once __DIR__ . '/../views/bodys_giangvien_lop/capnhat_phieu_gv.php';
     break;
+// views/layouts/admin/admin_khoa/them_khoa.php
+  case 'them_khoa':
+    require_once __DIR__ . '/../views/layouts/admin/admin_khoa/them_khoa.php';
+    break;
+// views/layouts/admin/admin_khoa/sua_khoa.php
+  case 'sua_khoa':
+    require_once __DIR__ . '/../views/layouts/admin/admin_khoa/sua_khoa.php';
+    break;
+// views/layouts/admin/admin_khoa/xoa_khoa.php
+  case 'xoa_khoa':
+    require_once __DIR__ . '/../views/layouts/admin/admin_khoa/xoa_khoa.php';
+    break;  
 
+// them_giangvien
+  case 'them_giangvien':
+    require_once __DIR__ . '/../views/layouts/admin/admin_giangvien/them_giangvien.php';
+    break;
+// sua_giangvien
+  case 'sua_giangvien':
+    require_once __DIR__ . '/../views/layouts/admin/admin_giangvien/sua_giangvien.php';
+    break;
+// xoa_giangvien
+  case 'xoa_giangvien':
+    require_once __DIR__ . '/../views/layouts/admin/admin_giangvien/xoa_giangvien.php';
+    break;  
+    
     
 
 
@@ -184,7 +209,7 @@ switch ($route) {
 
   // đăng xuất 
   case 'logout':
-    require_once __DIR__ . '/../views/xuly/logout.php';
+    require_once __DIR__ . '/../controllers/logout.php';
     break;
 
 // chuc nang admin views/layouts/admin/admin_khoa/gd_khoa.php

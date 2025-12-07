@@ -1,36 +1,6 @@
 <?php
-// ===============================================
 // views/bodys/bodys_login.php
-// Giao diện trang chủ + Đăng nhập hệ thống QLDRL (phiên bản không dùng .htaccess)
-// ===============================================
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-require_once __DIR__ . '/../../config/config.php';
-require_once __DIR__ . '/../../config/db.php';
-
-// Kết nối CSDL
-$conn = Database::connect();
-
-// ================= HÀM LẤY THÔNG BÁO THEO TAB =================
-function layThongBao(PDO $conn, string $tab) {
-    $sql = "SELECT * FROM thong_bao WHERE tab = :tab ORDER BY ngay DESC";
-    $stmt = $conn->prepare($sql);
-    $stmt->execute(['tab' => $tab]);
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-
-// Lấy thông báo tab1 & tab2
-$thong_bao_tab1 = layThongBao($conn, 'tab1');
-$thong_bao_tab2 = layThongBao($conn, 'tab2');
-
-// Hiển thị thông báo lỗi đăng nhập (nếu có)
-$login_error = $_SESSION['login_error'] ?? null;
-unset($_SESSION['login_error']);
+// Giao diện trang chủ + Đăng nhập hệ thống QLDRL
 ?>
 <!DOCTYPE html>
 <html lang="vi">
@@ -40,23 +10,9 @@ unset($_SESSION['login_error']);
 <title><?= htmlspecialchars($SITE_INFO['title']) ?></title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-<style>
-:root { --c1:#0056B3; --c2:#D62B28; --c3:#F5F9FF; --radius:10px; }
-body { background-color:var(--c3); font-family:'Segoe UI',Roboto,sans-serif; color:#333; overflow-x:hidden; }
-.container-main{margin-top:3rem;}
-.noti-card{border:1px solid #e8e8e8;border-left:5px solid var(--c1);border-radius:var(--radius);padding:1.1rem 1.4rem;margin-bottom:1.2rem;background:#fff;box-shadow:0 2px 5px rgba(0,0,0,.04);}
-.noti-card:hover{transform:translateY(-4px);box-shadow:0 6px 14px rgba(0,0,0,.08);border-left-color:var(--c2);}
-.noti-card small{color:#888;}
-.tab-header{display:flex;border-bottom:3px solid #dee2e6;margin-bottom:1rem;}
-.tab-header button{border:none;background:transparent;padding:.6rem 1.5rem;font-weight:600;color:#666;transition:.25s;border-bottom:3px solid transparent;}
-.tab-header button.active{color:var(--c1);border-bottom:3px solid var(--c1);}
-.card-login{background:#fff;border-radius:var(--radius);box-shadow:0 8px 18px rgba(0,0,0,.08);padding:2rem;}
-.card-login h6{color:var(--c1);font-weight:700;text-transform:uppercase;margin-bottom:1rem;}
-.btn-primary{background:linear-gradient(135deg,var(--c1),#00408a);border:none;font-weight:600;}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 10px rgba(0,86,179,.3);}
-.fade.show{display:block!important;opacity:1;transition:opacity .3s;}
-.fade{opacity:0;display:none;transition:opacity .3s;}
-</style>
+
+<link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/bodys_login.css">
+
 </head>
 <body>
 
@@ -136,19 +92,8 @@ body { background-color:var(--c3); font-family:'Segoe UI',Roboto,sans-serif; col
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-function showTab(tabId) {
-  const tabs = ['tab1', 'tab2'];
-  tabs.forEach(id => {
-    const el = document.getElementById(id);
-    const btn = document.getElementById('btn' + id.charAt(0).toUpperCase() + id.slice(1));
-    const active = (id === tabId);
-    el.style.display = active ? 'block' : 'none';
-    el.classList.toggle('show', active);
-    btn.classList.toggle('active', active);
-  });
-}
-</script>
+
+<script src="<?= BASE_URL ?>/assets/js/bodys_login.js"></script>
 
 </body>
 </html>

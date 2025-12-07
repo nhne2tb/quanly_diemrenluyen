@@ -98,6 +98,33 @@ $dsPhieu = $stmt->fetchAll(PDO::FETCH_ASSOC);
     color: #fff !important;
 }
 
+/* Fix toàn bộ bảng đều nhau */
+table.table td, 
+table.table th {
+    vertical-align: middle !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+/* Badge và nút căn giữa chính xác */
+.badge {
+    padding: 6px 10px;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+/* Nút Duyệt / Trả về */
+.btn-compact {
+    padding: 4px 12px !important;
+    font-size: 12px !important;
+    line-height: 14px !important;
+}
+
+/* Căn giữa toàn hàng */
+tbody tr td {
+    vertical-align: middle !important;
+}
+
     </style>
 </head>
 

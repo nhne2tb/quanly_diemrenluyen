@@ -136,8 +136,8 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
           <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
           <input id="tableSearch" type="search" class="form-control border-start-0" placeholder="Tìm kiếm giảng viên...">
         </div>
-        <a href="them_giangvien.php" class="btn btn-brand">
-          <i class="bi bi-plus-lg me-1"></i> Thêm GV
+<a href="<?= BASE_URL ?>index.php?route=them_giangvien" class="btn btn-brand">
+          <i class=""></i> Thêm GV
         </a>
       </div>
     </div>
@@ -180,8 +180,11 @@ body{background:var(--bg-light);font-family:system-ui,Segoe UI,Roboto,sans-serif
                 <button class="action-btn detail" data-bs-toggle="collapse" data-bs-target="#details<?= $i ?>" aria-expanded="false">
                   Chi tiết <i class="bi bi-chevron-down"></i>
                 </button>
-                <a href="sua_giangvien.php?ma=<?= urlencode($g['ma_gv']) ?>" class="action-btn edit">Sửa</a>
-                <a href="xoa_giangvien.php?ma=<?= urlencode($g['ma_gv']) ?>" class="action-btn delete" onclick="return confirm('Bạn có chắc muốn xóa giảng viên này?')">Xóa</a>
+<a href="<?= BASE_URL ?>index.php?route=sua_giangvien&ma=<?= urlencode($g['ma_gv']) ?>" 
+   class="action-btn edit">Sửa</a>
+<a href="<?= BASE_URL ?>index.php?route=xoa_giangvien&ma=<?= urlencode($g['ma_gv']) ?>" 
+   class="action-btn delete"
+   onclick="return confirm('Bạn có chắc muốn xóa giảng viên này?')">Xóa</a>
               </div>
             </td>
           </tr>

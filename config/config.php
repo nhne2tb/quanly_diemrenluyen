@@ -1,4 +1,5 @@
 <?php
+// config/config.php
 // ===============================================
 // config/config.php — Cấu hình chung hệ thống QLDRL DThU
 // ===============================================

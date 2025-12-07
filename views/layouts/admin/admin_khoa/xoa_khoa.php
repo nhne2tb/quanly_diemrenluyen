@@ -1,22 +1,48 @@
 <?php
+require_once __DIR__ . '/../../../../config/config.php';   // cần để lấy BASE_URL
 require_once __DIR__ . '/../../../../config/db.php';
+
 $conn = Database::connect();
 
+// ====== LẤY MÃ KHOA ======
 $ma = $_GET['ma'] ?? '';
+
+if (!$ma) {
+    header('Location: ' . BASE_URL . 'index.php?route=gd_khoa&msg=' . urlencode('Thiếu mã khoa') . '&type=danger');
+    exit;
+}
+
+// ====== LẤY THÔNG TIN KHOA ======
 $stmt = $conn->prepare("SELECT * FROM tb_khoa WHERE ma_khoa=?");
 $stmt->execute([$ma]);
 $khoa = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$khoa) {
-    die("<div style='padding:20px;font-family:sans-serif'>Không tìm thấy khoa!</div>");
+    header('Location: ' . BASE_URL . 'index.php?route=gd_khoa&msg=' . urlencode('Không tìm thấy khoa') . '&type=danger');
+    exit;
 }
 
-// ============= XỬ LÝ XÓA =============
+// ====== XỬ LÝ XÓA ======
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $stmt = $conn->prepare("DELETE FROM tb_khoa WHERE ma_khoa=?");
-    $stmt->execute([$ma]);
-    header('Location: gd_khoa.php?msg='.urlencode('Đã xóa khoa thành công').'&type=success');
-    exit;
+    try {
+        $delete = $conn->prepare("DELETE FROM tb_khoa WHERE ma_khoa=?");
+        $delete->execute([$ma]);
+
+        header('Location: ' . BASE_URL . 'index.php?route=gd_khoa&msg=' . urlencode('Đã xóa khoa thành công') . '&type=success');
+        exit;
+
+    } catch (PDOException $e) {
+
+        // Lỗi khóa ngoại (FK)
+        if ($e->getCode() == 23000) {
+            $msg = 'Không thể xóa khoa vì có giảng viên hoặc dữ liệu liên quan!';
+        } else {
+            $msg = 'Lỗi khi xóa: ' . $e->getMessage();
+        }
+
+        header('Location: ' . BASE_URL . 'index.php?route=gd_khoa&msg=' . urlencode($msg) . '&type=danger');
+        exit;
+    }
 }
 ?>
 <!doctype html>
@@ -41,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <i class="bi bi-info-circle-fill me-2 fs-5"></i>
         <div>
           <strong>Bạn có chắc chắn muốn xóa?</strong><br>
-          Nếu xóa, <span class="fw-bold text-danger">dữ liệu sẽ bị xóa vĩnh viễn và không thể khôi phục lại</span>.
+          Khi xóa, dữ liệu sẽ <span class="fw-bold text-danger">không thể khôi phục</span>.
         </div>
       </div>
 
@@ -51,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </p>
 
       <form method="post" class="d-flex justify-content-end gap-2">
-        <a href="gd_khoa.php" class="btn btn-secondary">
+        <a href="<?= BASE_URL ?>index.php?route=gd_khoa" class="btn btn-secondary">
           <i class="bi bi-arrow-left"></i> Hủy
         </a>
         <button type="submit" class="btn btn-danger">

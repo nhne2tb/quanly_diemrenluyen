@@ -113,7 +113,7 @@ header('Location: index.php?route=gd_lop&msg='.urlencode('Cập nhật lớp th�
       </div>
 
       <div class="col-12 d-flex justify-content-end gap-2 mt-3">
-        <a href="gd_lop.php" class="btn btn-secondary">Hủy</a>
+        <a href="<?= BASE_URL ?>index.php?route=gd_lop" class="btn btn-secondary">Hủy</a>
         <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
       </div>
     </form>

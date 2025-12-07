@@ -21,8 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             trim($_POST['dia_chi']),
             trim($_POST['website'])
         ]);
-        header('Location: gd_khoa.php?msg='.urlencode('Thêm khoa thành công').'&type=success');
-        exit;
+header('Location: ' . BASE_URL . 'index.php?route=gd_khoa&msg=' . urlencode('Thêm khoa thành công') . '&type=success');
+exit;
+
     } catch (PDOException $e) {
         $msg = "Lỗi: ".$e->getMessage();
         $msgType = 'danger';
@@ -120,7 +121,7 @@ label.required::after {
 
       <!-- Nút -->
       <div class="mt-4 d-flex justify-content-end gap-2">
-        <a href="gd_khoa.php" class="btn btn-secondary">Quay lại</a>
+        <a href="<?= BASE_URL ?>index.php?route=gd_khoa" class="btn btn-secondary">Quay lại</a>
         <button type="submit" class="btn btn-primary">Thêm khoa</button>
       </div>
     </form>
